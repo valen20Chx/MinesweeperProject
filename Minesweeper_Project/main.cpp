@@ -1,23 +1,17 @@
 #include <iostream>
+#include <SDL2/SDL.h>
 
-#include "MineField.h"
+#include "Display.h"
+#include "Sprite.h"
 
-int main(void)
+int main(int argc, char** argv)
 {
-	MineField field(20, 20, 15);
-
-	field.printStats();
-
-	field.draw_gridASCII();
-
-	field.play(PLAY_DIG, 5, 7);
-	field.play(PLAY_DIG, 8, 9);
-	field.play(PLAY_DIG, 3, 15);
-	field.play(PLAY_DIG, 13, 10);
-
-	field.draw_gridASCII();
-	
-	system("pause");
+	Display mDisplay("Ma Fenetre", 500, 300, false);
+	Sprite image1("Ressources/astro.bmp");
+	while (!mDisplay.get_closeWindow())
+	{
+		mDisplay.eventHandler();
+	}
 
 	return 0;
 }

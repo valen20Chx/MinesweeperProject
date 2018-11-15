@@ -1,6 +1,2 @@
-﻿  MineField.cpp
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper_project\minefield.cpp(5): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper_project\minefield.cpp(13): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  Generating Code...
-  Minesweeper_Project.vcxproj -> C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Debug\Minesweeper_Project.exe
+﻿  main.cpp
+  Minesweeper_Project.vcxproj -> C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\MinesweeperProject\Debug\Minesweeper_Project.exe
