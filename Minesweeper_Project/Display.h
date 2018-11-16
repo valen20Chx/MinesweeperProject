@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <iostream>
 #include <string>
 
@@ -11,9 +11,10 @@ class Display
 {
 private:
 	int width, height;
+	int Xpos, Ypos;
 	bool isFullscreen;
-	SDL_Window* window = NULL;
-	SDL_Surface* screenSurface = NULL;
+	SDL_Window* window;
+	SDL_Surface* screenSurface;
 	std::string title;
 	SDL_Event mEvent;
 	bool closeWindow;
@@ -25,6 +26,8 @@ public:
 	std::string get_title();
 	int get_width();
 	int get_height();
+	int get_Xpos();
+	int get_Ypos();
 	bool get_closeWindow();
 	void update();
 	void eventHandler();

@@ -2,13 +2,15 @@
 
 Sprite::Sprite(std::string path)
 {
-	this->gSpriteSurface = SDL_LoadBMP(this->path.c_str());
-
+	this->path = path;
 	this->isLoaded = true;
+
+	this->gSpriteSurface = SDL_LoadBMP(this->path.c_str());
 
 	if (this->gSpriteSurface == NULL)
 	{
 		std::cerr << "Error : Cant load Image" << this->path << std::endl;
+		std::cerr << SDL_GetError() << std::endl;
 		this->isLoaded = false;
 	}
 }
@@ -27,5 +29,13 @@ void Sprite::apply(SDL_Surface* gScreenSurface)
 {
 	this->gScreenSurface = gScreenSurface;
 
-	SDL_BlitSurface(gSpriteSurface, NULL, gScreenSurface, NULL);
+	if (SDL_BlitSurface(this->gSpriteSurface, NULL, gScreenSurface, NULL))
+	{
+		std::cerr << "Blitz surface Error : " << SDL_GetError() << std::endl;
+	}
+}
+
+SDL_Surface* Sprite::get_Surface()
+{
+	return this->gSpriteSurface;
 }

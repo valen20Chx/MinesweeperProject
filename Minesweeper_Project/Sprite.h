@@ -1,15 +1,15 @@
 #pragma once
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <string>
 #include <iostream>
 
 class Sprite
 {
 private:
-	SDL_Window* gWindow = NULL;
-	SDL_Surface* gScreenSurface = NULL;
-	SDL_Surface* gSpriteSurface = NULL;
+	SDL_Window* gWindow;
+	SDL_Surface* gScreenSurface;
+	SDL_Surface* gSpriteSurface;
 	int Xpos, Ypos;
 	int width, height;
 	std::string path;
@@ -17,7 +17,8 @@ private:
 public:
 	Sprite(std::string path);
 	~Sprite();
-	bool get_isLoaded();
 	void apply(SDL_Surface* gScreenSurface);
+	bool get_isLoaded();
+	SDL_Surface* get_Surface();
 protected:
 };

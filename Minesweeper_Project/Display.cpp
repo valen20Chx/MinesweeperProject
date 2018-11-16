@@ -14,7 +14,7 @@ Display::Display(std::string title, int width, int height, bool isFullscreen)
 	else
 	{
 		this->window = SDL_CreateWindow(this->title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->width, this->height, SDL_WINDOW_SHOWN);
-		if (window == NULL)
+		if (this->window == NULL)
 		{
 			std::cerr << "Error : Window could not be created." << std::endl;
 		}
@@ -84,4 +84,14 @@ void Display::eventHandler()
 bool Display::get_closeWindow()
 {
 	return this->closeWindow;
+}
+
+int Display::get_Xpos()
+{
+	return this->Xpos;
+}
+
+int Display::get_Ypos()
+{
+	return this->Ypos;
 }
