@@ -7,7 +7,7 @@
 
 class Object
 {
-private:
+protected:
 	SDL_Rect dest;
 	SDL_Rect src;
 	SDL_Texture* texture;

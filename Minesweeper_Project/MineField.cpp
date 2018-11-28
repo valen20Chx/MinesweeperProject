@@ -1,12 +1,11 @@
 #include "MineField.h"
 
-MineField::MineField(int width, int height, int percentBomb)
+MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 {
-	srand(time(NULL));
-
 	this->width = width;
 	this->height = height;
 	this->percentBomb = percentBomb;
+	this->seed = seed;
 
 	this->grid.resize(width);
 
@@ -17,9 +16,11 @@ MineField::MineField(int width, int height, int percentBomb)
 	
 	this->nbBombs = (((width * height) * percentBomb) / 100);
 
+	srand(this->seed);
+
 	for (int ctor = 0; ctor < this->nbBombs; ctor++)
 	{
-		int correctPlacement = false;
+		bool correctPlacement = false;
 
 		while (!correctPlacement)
 		{
@@ -177,5 +178,37 @@ void MineField::play(int playType, int x, int y)
 		break;
 	default:
 		break;
+	}
+}
+
+void MineField::set_Squares(int screenWidth, int screenHeight, SDL_Renderer* screenRenderer)
+{
+	for (int i = 0; i < this->width; i++)
+	{
+		for (int j = 0; j < this->height; j++)
+		{
+			int destX = (20 + (i * (screenWidth / this->width)));
+			int destY = (30 + (j * (screenHeight / this->height)));;
+			int destW = ((screenWidth / this->width) - 40);
+			int destH = ((screenHeight / this->height) - 50);;
+
+			this->grid[i][j].set_src(16, 0, 16, 16);
+			this->grid[i][j].set_dest(destX, destY, destW, destH);
+			this->grid[i][j].setImage("Ressources/Image/Default/Sprite_Default.png", screenRenderer);
+		}
+	}
+}
+
+void MineField::draw(SDL_Renderer* renderer)
+{
+	for (int i = 0; i < this->width; i++)
+	{
+		for (int j = 0; j < this->height; j++)
+		{
+			SDL_Rect dest = this->grid[i][j].get_dest();
+			SDL_Rect src = this->grid[i][j].get_src();
+
+			SDL_RenderCopyEx(renderer, this->grid[i][j].get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+		}
 	}
 }

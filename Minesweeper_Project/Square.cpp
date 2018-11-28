@@ -54,7 +54,22 @@ bool Square::get_isHidden()
 
 void Square::reveal()
 {
-	if(!this->isFlagged) this->isHidden = false;
+	if (!this->isFlagged)
+	{
+		this->isHidden = false;
+		if (this->get_isBomb())
+		{
+			this->set_src(16, 0, 16, 16);
+		}
+		else if (this->get_neibourCounter() == 0)
+		{
+			this->set_src(32, 0, 16, 16);
+		}
+		else
+		{
+			this->set_src(48 + (this->get_neibourCounter() * 16), 0, 16, 16);
+		}
+	}
 }
 
 bool Square::get_isFlagged()
@@ -65,4 +80,12 @@ bool Square::get_isFlagged()
 void Square::set_isFlagged(bool isFlagged)
 {
 	this->isFlagged = isFlagged;
+	if (this->isFlagged)
+	{
+		this->set_src(0, 0, 16, 16);
+	}
+	else
+	{
+		this->set_src(16, 0, 16, 16);
+	}
 }

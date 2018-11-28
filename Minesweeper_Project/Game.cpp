@@ -14,11 +14,14 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 
 	SDL_SetWindowTitle(this->mWindow, this->title.c_str());
 
-	star.set_dest(50, 50, 32, 32);
-	star.set_dest(0, 0, 16, 16);
-	star.setImage("Ressources/book.png", this->mRenderer);
+	this->star.set_src(0, 0, 16, 16);
+	this->star.set_dest(50, 50, 200, 200);
+	this->star.setImage("Ressources/Image/book.png", this->mRenderer);
+	
+	this->gameGrid = new MineField(20, 20, 15, 3);
+	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
-	loop();
+	this->loop();
 }
 
 Game::~Game()
@@ -39,7 +42,7 @@ void Game::loop()
 		if (this->lastFrame >= (lastTime + 1000))
 		{
 			lastTime = this->lastFrame;
-			frameCount = 0;
+			this->frameCount = 0;
 			this->count++;
 		}
 
@@ -47,10 +50,12 @@ void Game::loop()
 		this->input();
 		this->update();
 
-		if (this->count > 3)
+		this->draw(this->star);
+
+		/*if (this->count > 3)
 		{
-			isRunning = false;
-		}
+			this->isRunning = false;
+		}*/
 	}
 }
 
@@ -61,12 +66,20 @@ void Game::update()
 
 void Game::input()
 {
-
+	SDL_Event eventListener;
+	while (SDL_PollEvent(&eventListener))
+	{
+		if (eventListener.type == SDL_QUIT)
+		{
+			this->isRunning = false;
+		}
+	}
 }
 
 void Game::render()
 {
-	SDL_GetRenderDrawColor(mRenderer, 0, 0, 0, 0);
+
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
 
 	SDL_Rect rect;
 
@@ -77,7 +90,9 @@ void Game::render()
 
 	SDL_RenderFillRect(this->mRenderer, &rect);
 
-	draw(star);
+	this->draw(star);
+
+	this->drawMinefield();
 
 	this->frameCount++;
 	int timerFPS = SDL_GetTicks() - lastFrame;
@@ -95,4 +110,9 @@ void Game::draw(Object obj)
 	SDL_Rect src = obj.get_src();
 
 	SDL_RenderCopyEx(this->mRenderer, obj.get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+}
+
+void Game::drawMinefield()
+{
+	this->gameGrid->draw(this->mRenderer);
 }

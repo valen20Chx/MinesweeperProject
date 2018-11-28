@@ -1,15 +1,10 @@
 #include "Object.h"
 
-
-
 Object::Object()
-{
-}
-
+{}
 
 Object::~Object()
-{
-}
+{}
 
 SDL_Rect Object::get_dest() const
 {

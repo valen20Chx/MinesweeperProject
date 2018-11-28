@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Object.h"
+
 #define NEIGHBOUR_INIT_IS_BOMB -1;
 #define NEIGHBOUR_INIT_IS_NOT_BOMB 0;
 
-class Square
+class Square : public Object
 {
 private:
 	int neighbourCounter;
