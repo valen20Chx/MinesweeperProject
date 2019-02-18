@@ -9,16 +9,16 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 
 	this->grid.resize(width);
 
-	for (int i = 0; i < this->grid.size(); i++)
+	for (int i = 0; i < (this->grid.size()); i++)
 	{
 		this->grid[i].resize(height);
 	}
-	
+
 	this->nbBombs = (((width * height) * percentBomb) / 100);
 
 	srand(this->seed);
 
-	for (int ctor = 0; ctor < this->nbBombs; ctor++)
+	for (int ctor = 0; ctor < this->nbBombs; ctor++) // place les bombes aleatoirement si la case n'est pas une bombe
 	{
 		bool correctPlacement = false;
 
@@ -37,11 +37,11 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 		}
 	}
 
-	for (int j = 0; j < this->height; j++)
+	for (int j = 0; j < this->height; j++) //compte les bombes voisine pour chaque case
 	{
 		for (int i = 0; i < this->width; i++)
 		{
-			if(!this->grid[i][j].get_isBomb())
+			if (!this->grid[i][j].get_isBomb())
 			{
 				int nbB = 0;
 				if (i != 0)
@@ -74,17 +74,44 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 					if (this->grid[i + 1][j].get_isBomb()) nbB++;
 				}
 
-				if(j != 0)
+				if (j != 0)
 					if (this->grid[i][j - 1].get_isBomb()) nbB++;
 
-				if(j != (height - 1))
+				if (j != (height - 1))
 					if (this->grid[i][j + 1].get_isBomb()) nbB++;
 
-				this->grid[i][j].set_neibourCounter(nbB);
+				this->grid[i][j].set_neibourCounter(nbB); //pour chaque case on donne le nombre de voisin compté avant
 			}
 		}
 	}
 }
+
+
+//afficher que des cases cachée
+
+/*	
+Minefield::drawBlocks(int x, int y, int xMax, int yMax)
+{
+	this->grid[x][y].set_src(16, 0, 16, 16); //normalement je parcour chaque "square" du "grid" de ce MineField
+	this->grid[x][y].setImage("Ressources/Image/Default/Sprite_Default.png", this->mRenderer);
+
+	
+		if (x + 1 <= xMax) { //si on est pas a la derniere collone
+			this->grid[x][y].set_dest(16 * x, 16 * y, 16, 16);  //x celon le nombre en collone et y en ligne
+			drawBlocks(x + 1, y, xMax, yMax, OBJ),
+		}
+		else if(y + 1 <= yMax) { //sinon on passe a la premiere collonne et prochaine ligne si il y a
+			this->grid[x][y].set_dest(16 * x, 16 * y, 16, 16);  
+			drawBlocks( 0, y + 1, xMax, yMax, OBJ),
+		}
+		// si plus de ligne apres c'est fini
+		
+
+	SDL_RenderCopyEx(this->mRenderer, obj.get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+}
+
+	*/
+
 
 
 MineField::~MineField()
@@ -166,17 +193,15 @@ void MineField::printStats()
 	std::cout << "Percentage : " << this->percentBomb << std::endl;
 }
 
-void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
+void MineField::play(int playType, int x, int y)
 {
-	int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-	int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
 	switch (playType)
 	{
 	case PLAY_DIG:
-		this->grid[xGrid][yGrid].reveal();
+		this->grid[x][y].reveal();
 		break;
 	case PLAY_FLAG:
-		this->grid[xGrid][yGrid].set_isFlagged(!this->grid[x][y].get_isFlagged());
+		this->grid[x][y].set_isFlagged(!this->grid[x][y].get_isFlagged());
 		break;
 	default:
 		break;
@@ -189,29 +214,15 @@ void MineField::set_Squares(int screenWidth, int screenHeight, SDL_Renderer* scr
 	{
 		for (int j = 0; j < this->height; j++)
 		{
-			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
-			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
-			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+			int destX = (20 + (i * (screenWidth / this->width))); //20 =  espace coté
+			int destY = (30 + (j * (screenHeight / this->height)));; //30 espace haut
+			int destW = ((screenWidth / this->width) - 40);
+			int destH = ((screenHeight / this->height) - 50);;
 
 			this->grid[i][j].set_src(16, 0, 16, 16);
 			this->grid[i][j].set_dest(destX, destY, destW, destH);
 			this->grid[i][j].setImage("Ressources/Image/Default/Sprite_Default.png", screenRenderer);
-		}
-	}
-}
-
-void MineField::update_Squares(int screenWidth, int screenHeight)
-{
-	for (int i = 0; i < this->width; i++)
-	{
-		for (int j = 0; j < this->height; j++)
-		{
-			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
-			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
-			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
-			this->grid[i][j].set_dest(destX, destY, destW, destH);
+			//std::cout << "test";
 		}
 	}
 }

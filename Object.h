@@ -8,8 +8,8 @@
 class Object
 {
 protected:
-	SDL_Rect dest;
-	SDL_Rect src;
+	SDL_Rect dest; //"envoyer" la partie l'image entré en parametre sur l'ecran
+	SDL_Rect src; ////"definir" la partie l'image entré en parametre à l'objet
 	SDL_Texture* texture;
 public:
 	Object();
@@ -21,3 +21,4 @@ public:
 	void set_src(int x, int y, int w, int h);
 	void setImage(std::string path, SDL_Renderer* renderer);
 };
+

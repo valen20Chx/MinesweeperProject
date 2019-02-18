@@ -15,11 +15,11 @@ Square::Square(bool isBomb)
 	this->isFlagged = false;
 	if (isBomb)
 	{
-		this->neighbourCounter = NEIGHBOUR_INIT_IS_BOMB;
+		this->neighbourCounter = NEIGHBOUR_INIT_IS_BOMB;  //on affichera pas le nombre
 	}
 	else
 	{
-		this->neighbourCounter = NEIGHBOUR_INIT_IS_NOT_BOMB;
+		this->neighbourCounter = NEIGHBOUR_INIT_IS_NOT_BOMB; //on affichera le nombre
 	}
 }
 
@@ -59,21 +59,17 @@ void Square::reveal()
 		this->isHidden = false;
 		if (this->get_isBomb())
 		{
-			this->set_src(16, 0, 16, 16);
-		}
-		else if (this->get_neibourCounter() == 0)
-		{
-			this->set_src(32, 0, 16, 16);
+			this->set_src(32, 0, 16, 16); //chagment position x image source
 		}
 		else
 		{
-			this->set_src(48 + (this->get_neibourCounter() * 16), 0, 16, 16);
+			this->set_src(48 + (this->get_neibourCounter() * 16), 0, 16, 16); //de la case 0 a 8 de l'image source
 		}
 	}
 }
 
 bool Square::get_isFlagged()
-{ 
+{
 	return this->isFlagged;
 }
 
