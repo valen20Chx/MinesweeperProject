@@ -21,4 +21,3 @@ public:
 	void set_src(int x, int y, int w, int h);
 	void setImage(std::string path, SDL_Renderer* renderer);
 };
-

@@ -39,4 +39,3 @@ public:
 	void update_Squares(int screenWidth, int screenHeight);
 	void draw(SDL_Renderer* renderer);
 };
-
