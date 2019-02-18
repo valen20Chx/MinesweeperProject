@@ -9,23 +9,17 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
-	/*create renderer*/
+
 	SDL_CreateWindowAndRenderer(this->width, this->height, NULL, &this->mWindow, &this->mRenderer);
 
 	SDL_SetWindowTitle(this->mWindow, this->title.c_str());
 
-	//this->star.set_src(0, 0, 16, 16);
-	//this->star.setImage("Ressources/Image/book.png", this->mRenderer);
-	//this->star.set_dest(50, 50, 200, 200);
+	this->star.set_src(0, 0, 16, 16);
+	this->star.set_dest(50, 50, 200, 200);
+	this->star.setImage("Ressources/Image/book.png", this->mRenderer);
 	
-
-	this->gameGrid = new MineField(5, 5, 15, 3);  //width  height  %Bomb    seed    // gameGrid est de type MineField
-	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer); //donne a chaque "square" son image source et sa destination
-
-
-	//////test////
-	
-	//SDL_RenderCopyEx(this->mRenderer, gameGrid->get_square() .get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+	this->gameGrid = new MineField(20, 20, 15, 3);
+	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
 	this->loop();
 }
@@ -79,13 +73,25 @@ void Game::input()
 		{
 			this->isRunning = false;
 		}
+		if(SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos) == SDL_MOUSEBUTTONDOWN)
+		{
+			if(SDL_BUTTON(SDL_BUTTON_LEFT))
+				this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
+			if(SDL_BUTTON(SDL_BUTTON_RIGHT))
+				this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
+		}
+		if(eventListener.type == SDL_WINDOWEVENT_SIZE_CHANGED)
+		{
+			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
+			this->gameGrid->update_Squares(this->width, this->height);
+		}
 	}
 }
 
 void Game::render()
 {
 
-	SDL_SetRenderDrawColor(mRenderer, 0, 100, 50, 255);
+	SDL_SetRenderDrawColor(mRenderer, 0, 0, 0, 255);
 
 	SDL_Rect rect;
 
@@ -102,7 +108,7 @@ void Game::render()
 
 	this->frameCount++;
 	int timerFPS = SDL_GetTicks() - lastFrame;
-	if (timerFPS < (1000 / 60))
+	if (timerFPS < (1000/60))
 	{
 		SDL_Delay((1000 / 60) - timerFPS);
 	}
@@ -115,7 +121,7 @@ void Game::draw(Object obj)
 	SDL_Rect dest = obj.get_dest();
 	SDL_Rect src = obj.get_src();
 
-	SDL_RenderCopyEx(this->mRenderer, obj.get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE); //affiche la texture dans le renderer entré en parametre
+	SDL_RenderCopyEx(this->mRenderer, obj.get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
 }
 
 void Game::drawMinefield()
