@@ -27,6 +27,7 @@ private:
 	Object star;
 	int gameState;
 	MineField* gameGrid;
+	int mouseXpos, mouseYpos;
 public:
 	Game(std::string title, int width, int height, bool fullScreen);
 	~Game();

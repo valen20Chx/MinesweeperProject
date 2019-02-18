@@ -166,15 +166,17 @@ void MineField::printStats()
 	std::cout << "Percentage : " << this->percentBomb << std::endl;
 }
 
-void MineField::play(int playType, int x, int y)
+void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
 {
+	int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
+	int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
 	switch (playType)
 	{
 	case PLAY_DIG:
-		this->grid[x][y].reveal();
+		this->grid[xGrid][yGrid].reveal();
 		break;
 	case PLAY_FLAG:
-		this->grid[x][y].set_isFlagged(!this->grid[x][y].get_isFlagged());
+		this->grid[xGrid][yGrid].set_isFlagged(!this->grid[x][y].get_isFlagged());
 		break;
 	default:
 		break;
@@ -187,14 +189,29 @@ void MineField::set_Squares(int screenWidth, int screenHeight, SDL_Renderer* scr
 	{
 		for (int j = 0; j < this->height; j++)
 		{
-			int destX = (20 + (i * (screenWidth / this->width)));
-			int destY = (30 + (j * (screenHeight / this->height)));;
-			int destW = ((screenWidth / this->width) - 40);
-			int destH = ((screenHeight / this->height) - 50);;
+			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
+			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
+			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
+			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
 
 			this->grid[i][j].set_src(16, 0, 16, 16);
 			this->grid[i][j].set_dest(destX, destY, destW, destH);
 			this->grid[i][j].setImage("Ressources/Image/Default/Sprite_Default.png", screenRenderer);
+		}
+	}
+}
+
+void MineField::update_Squares(int screenWidth, int screenHeight)
+{
+	for (int i = 0; i < this->width; i++)
+	{
+		for (int j = 0; j < this->height; j++)
+		{
+			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
+			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
+			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
+			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+			this->grid[i][j].set_dest(destX, destY, destW, destH);
 		}
 	}
 }

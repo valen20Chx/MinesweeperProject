@@ -10,6 +10,10 @@
 
 #define PLAY_DIG 0
 #define PLAY_FLAG 1
+#define GAME_MARGIN_LEFT 20
+#define GAME_MARGIN_TOP 40
+#define GAME_MARGIN_BOTTOM 20
+#define GAME_MARGIN_RIGHT 20
 
 class MineField
 {
@@ -30,8 +34,9 @@ public:
 	Square get_square(int x, int y);
 	void draw_gridASCII();
 	void printStats();
-	void play(int playType, int x, int y);
+	void play(int playType, int x, int y, int screenWidth, int screenHeight);
 	void set_Squares(int screenWidth, int screenHeight, SDL_Renderer* screenRenderer);
+	void update_Squares(int screenWidth, int screenHeight);
 	void draw(SDL_Renderer* renderer);
 };
 

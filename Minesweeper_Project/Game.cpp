@@ -73,6 +73,18 @@ void Game::input()
 		{
 			this->isRunning = false;
 		}
+		if(SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos) == SDL_MOUSEBUTTONDOWN)
+		{
+			if(SDL_BUTTON(SDL_BUTTON_LEFT))
+				this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
+			if(SDL_BUTTON(SDL_BUTTON_RIGHT))
+				this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
+		}
+		if(eventListener.type == SDL_WINDOWEVENT_SIZE_CHANGED)
+		{
+			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
+			this->gameGrid->update_Squares(this->width, this->height);
+		}
 	}
 }
 
