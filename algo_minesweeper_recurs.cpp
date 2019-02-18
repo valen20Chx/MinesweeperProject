@@ -34,4 +34,3 @@ void play_reveal(int x, int y)
     }
   }
 }
-// TO DO : ADD TO MAIN CODE
