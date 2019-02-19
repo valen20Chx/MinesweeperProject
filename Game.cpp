@@ -76,10 +76,14 @@ void Game::input()
 		if(eventListener.type == SDL_MOUSEBUTTONDOWN)
 		{
 			SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos);
-			if(eventListener.button.button == SDL_BUTTON_LEFT)
-				this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
-			if(eventListener.button.button == SDL_BUTTON_RIGHT)
-				this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
+			if (this->gameGrid->get_state() != MF_STATE_LOSS && this->gameGrid->get_state() != MF_STATE_WON)
+			{
+				if (eventListener.button.button == SDL_BUTTON_LEFT)
+					this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
+				if (eventListener.button.button == SDL_BUTTON_RIGHT)
+					this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
+				this->gameGrid->update();
+			}
 		}
 		if(eventListener.window.event == SDL_WINDOWEVENT_RESIZED)
 		{

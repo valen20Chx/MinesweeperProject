@@ -2,10 +2,12 @@
 
 MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 {
+	this->state = MF_STATE_NONE;
 	this->width = width;
 	this->height = height;
 	this->percentBomb = percentBomb;
 	this->seed = seed;
+	this->nbFlags = 0;
 
 	this->grid.resize(width);
 
@@ -30,9 +32,15 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 
 			if (!this->grid[tempX][tempY].get_isBomb())
 			{
+				SDL_Point tempPoint;
 				correctPlacement = true;
 
+				tempPoint.x = tempX;
+				tempPoint.y = tempY;
+
 				this->grid[tempX][tempY] = new Square(true);
+
+				this->bombsPos.push_back(tempPoint);
 			}
 		}
 	}
@@ -84,6 +92,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 			}
 		}
 	}
+	this->state = MF_STATE_STARTED;
 }
 
 
@@ -114,6 +123,26 @@ std::vector<std::vector<Square>> MineField::get_grid()
 Square MineField::get_square(int x, int y)
 {
 	return this->grid[x][y];
+}
+
+int MineField::get_state()
+{
+	return this->state;
+}
+
+void MineField::set_state(int state)
+{
+	this->state = state;
+}
+
+int MineField::get_nbFlags()
+{
+	return this->nbFlags;
+}
+
+void MineField::set_nbFlags(int nbFlags)
+{
+	this->nbFlags = nbFlags;
 }
 
 void MineField::draw_gridASCII()
@@ -193,8 +222,14 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 						this->play_reveal(i, j);
 						break;
 					case PLAY_FLAG:
-						if(this->grid[i][j].get_isHidden())
+						if (this->grid[i][j].get_isHidden())
+						{
+							if (this->grid[i][j].get_isFlagged())
+								this->nbFlags--;
+							else this->nbFlags++;
+
 							this->grid[i][j].set_isFlagged(!this->grid[i][j].get_isFlagged());
+						}
 						break;
 					default:
 						break;
@@ -229,6 +264,7 @@ void MineField::play_reveal(int x, int y)
 		{
 			this->grid[x][y].reveal();
 			//Lose
+			this->state = MF_STATE_LOSS;
 		}
 		else
 		{
@@ -316,5 +352,20 @@ void MineField::draw(SDL_Renderer* renderer)
 
 			SDL_RenderCopyEx(renderer, this->grid[i][j].get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
 		}
+	}
+}
+
+void MineField::update()
+{
+	bool allBombsFlag = true;
+	for (int i = 0; i < this->nbBombs; i++)
+	{
+		if (!this->grid[bombsPos[i].x][bombsPos[i].y].get_isFlagged())
+			allBombsFlag = false;
+	}
+	if (allBombsFlag)
+	{
+		std::cout << "Won by finding all the Bombs" << std::endl;
+		this->state = MF_STATE_WON;
 	}
 }
