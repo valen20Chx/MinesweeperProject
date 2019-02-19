@@ -129,6 +129,7 @@
     <ClInclude Include="MineField.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="WallPaper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="MineField.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Square.cpp" />
+    <ClCompile Include="WallPaper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

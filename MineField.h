@@ -34,6 +34,8 @@ private:
 	int state;
 	int nbFlags;
 	std::vector<SDL_Point> bombsPos;
+	unsigned int startTime;
+	unsigned int endTime;
 public:
 	MineField(int width, int height, int percentBomb, unsigned int seed);
 	~MineField();
@@ -54,4 +56,5 @@ public:
 	void update_Squares(int screenWidth, int screenHeight);
 	void draw(SDL_Renderer* renderer);
 	void update();
+	unsigned int getRuningTicks();
 };

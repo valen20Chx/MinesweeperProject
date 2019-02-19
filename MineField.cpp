@@ -93,6 +93,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 		}
 	}
 	this->state = MF_STATE_STARTED;
+	this->startTime = SDL_GetTicks();
 }
 
 
@@ -265,6 +266,7 @@ void MineField::play_reveal(int x, int y)
 			this->grid[x][y].reveal();
 			//Lose
 			this->state = MF_STATE_LOSS;
+			this->endTime = SDL_GetTicks();
 		}
 		else
 		{
@@ -365,7 +367,22 @@ void MineField::update()
 	}
 	if (allBombsFlag)
 	{
-		std::cout << "Won by finding all the Bombs" << std::endl;
+		unsigned int time = this->getRuningTicks();
+		std::cout << "Won by finding all the Bombs in " << time << " ms" << std::endl;
 		this->state = MF_STATE_WON;
+		this->endTime = SDL_GetTicks();
+	}
+}
+
+// Return numbers of miliseconds since start of MineField
+unsigned MineField::getRuningTicks()
+{
+	if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
+	{
+		return (SDL_GetTicks() - this->startTime);
+	}
+	else
+	{
+		return (this->endTime - startTime);
 	}
 }
