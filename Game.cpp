@@ -104,7 +104,7 @@ void Game::render()
 
 	SDL_RenderFillRect(this->mRenderer, &rect);
 
-	this->draw(star);
+	//this->draw(star);
 
 	this->drawMinefield();
 

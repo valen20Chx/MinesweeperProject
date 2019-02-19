@@ -35,6 +35,7 @@ public:
 	void draw_gridASCII();
 	void printStats();
 	void play(int playType, int x, int y, int screenWidth, int screenHeight);
+	void play_reveal(int x, int y);
 	void set_Squares(int screenWidth, int screenHeight, SDL_Renderer* screenRenderer);
 	void update_Squares(int screenWidth, int screenHeight);
 	void draw(SDL_Renderer* renderer);

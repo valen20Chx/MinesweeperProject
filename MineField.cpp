@@ -169,20 +169,105 @@ void MineField::printStats()
 void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
 {
 	// Si dans zone de jeu
-	if (x > GAME_MARGIN_LEFT && x < (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) && y > GAME_MARGIN_TOP && y < (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)))
+	if (x > GAME_MARGIN_LEFT && x < (screenWidth - (GAME_MARGIN_RIGHT)) && y > GAME_MARGIN_TOP && y < (screenHeight - (GAME_MARGIN_BOTTOM)))
 	{
+		/* / / / TO FIX
 		int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
 		int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+		*/
+
+		for (int i = 0; i < this->width; i++)
+		{
+			for (int j = 0; j < this->height; j++)
+			{
+				int tX = this->grid[i][j].get_dest().x;
+				int tY = this->grid[i][j].get_dest().y;
+				int tW = this->grid[i][j].get_dest().w;
+				int tH = this->grid[i][j].get_dest().h;
+
+				if (x > tX && x < (tX + tW) && y > tY && y < (tY + tH))
+				{
+					switch (playType)
+					{
+					case PLAY_DIG:
+						this->play_reveal(i, j);
+						break;
+					case PLAY_FLAG:
+						if(this->grid[i][j].get_isHidden())
+							this->grid[i][j].set_isFlagged(!this->grid[i][j].get_isFlagged());
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+
+		/* CONTINUITY OF PREVIOUS VERSION CLICK CONTROL
 		switch (playType)
 		{
 		case PLAY_DIG:
-			this->grid[xGrid][yGrid].reveal();
+			this->play_reveal(i, j);
 			break;
 		case PLAY_FLAG:
-			this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
+			if(this->grid[i][j].get_isHidden())
+				this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
 			break;
 		default:
 			break;
+		}
+		*/
+	}
+}
+
+void MineField::play_reveal(int x, int y)
+{
+	if (this->grid[x][y].get_isHidden() && !this->grid[x][y].get_isFlagged())
+	{
+		std::cout << "play_reveal called for : (" << x << ";" << y << ")" << std::endl;
+		if (this->grid[x][y].get_isBomb())
+		{
+			this->grid[x][y].reveal();
+			//Lose
+		}
+		else
+		{
+			this->grid[x][y].reveal();
+			if (this->grid[x][y].get_neibourCounter() == 0)
+			{
+				if (x > 0)
+				{
+					this->play_reveal(x - 1, y);
+					if (y > 0)
+					{
+						this->play_reveal(x - 1, y - 1);
+					}
+					if (y < (this->height - 1))
+					{
+						this->play_reveal(x - 1, y + 1);
+					}
+				}
+				if (x < (this->width - 1))
+				{
+					this->play_reveal(x + 1, y);
+					if (y > 0)
+					{
+						this->play_reveal(x + 1, y - 1);
+					}
+					if (y < (this->height - 1))
+					{
+						this->play_reveal(x + 1, y + 1);
+					}
+				}
+				if (y > 0)
+				{
+					this->play_reveal(x, y - 1);
+				}
+				if (y < (this->height - 1))
+				{
+					this->play_reveal(x, y + 1);
+				}
+			}
 		}
 	}
 }
