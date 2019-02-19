@@ -10,15 +10,15 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 
-	SDL_CreateWindowAndRenderer(this->width, this->height, NULL, &this->mWindow, &this->mRenderer);
+	SDL_CreateWindowAndRenderer(this->width, this->height, SDL_WINDOW_RESIZABLE, &this->mWindow, &this->mRenderer);
 
 	SDL_SetWindowTitle(this->mWindow, this->title.c_str());
 
-	this->star.set_src(0, 0, 16, 16);
-	this->star.set_dest(50, 50, 200, 200);
-	this->star.setImage("Ressources/Image/book.png", this->mRenderer);
+	//this->star.set_src(0, 0, 16, 16);
+	//this->star.set_dest(50, 50, 200, 200);
+	//this->star.setImage("Ressources/Image/book.png", this->mRenderer);
 	
-	this->gameGrid = new MineField(20, 20, 15, 3);
+	this->gameGrid = new MineField(10, 10, 5, 3);
 	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
 	this->loop();
@@ -73,17 +73,19 @@ void Game::input()
 		{
 			this->isRunning = false;
 		}
-		if(SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos) == SDL_MOUSEBUTTONDOWN)
+		if(eventListener.type == SDL_MOUSEBUTTONDOWN)
 		{
-			if(SDL_BUTTON(SDL_BUTTON_LEFT))
+			SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos);
+			if(eventListener.button.button == SDL_BUTTON_LEFT)
 				this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
-			if(SDL_BUTTON(SDL_BUTTON_RIGHT))
+			if(eventListener.button.button == SDL_BUTTON_RIGHT)
 				this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
 		}
-		if(eventListener.type == SDL_WINDOWEVENT_SIZE_CHANGED)
+		if(eventListener.window.event == SDL_WINDOWEVENT_RESIZED)
 		{
 			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
 			this->gameGrid->update_Squares(this->width, this->height);
+			std::cout << "Change Size : (" << this->width << ";" << this->height << ")" << std::endl;
 		}
 	}
 }
@@ -121,7 +123,7 @@ void Game::draw(Object obj)
 	SDL_Rect dest = obj.get_dest();
 	SDL_Rect src = obj.get_src();
 
-	SDL_RenderCopyEx(this->mRenderer, obj.get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopy(this->mRenderer, obj.get_texture(), &src, &dest);
 }
 
 void Game::drawMinefield()

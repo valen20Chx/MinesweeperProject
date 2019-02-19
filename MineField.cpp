@@ -168,18 +168,22 @@ void MineField::printStats()
 
 void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
 {
-	int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-	int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
-	switch (playType)
+	// Si dans zone de jeu
+	if (x > GAME_MARGIN_LEFT && x < (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) && y > GAME_MARGIN_TOP && y < (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)))
 	{
-	case PLAY_DIG:
-		this->grid[xGrid][yGrid].reveal();
-		break;
-	case PLAY_FLAG:
-		this->grid[xGrid][yGrid].set_isFlagged(!this->grid[x][y].get_isFlagged());
-		break;
-	default:
-		break;
+		int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
+		int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+		switch (playType)
+		{
+		case PLAY_DIG:
+			this->grid[xGrid][yGrid].reveal();
+			break;
+		case PLAY_FLAG:
+			this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -189,10 +193,10 @@ void MineField::set_Squares(int screenWidth, int screenHeight, SDL_Renderer* scr
 	{
 		for (int j = 0; j < this->height; j++)
 		{
-			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
-			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
-			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+			int destW = ((screenWidth- (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) / this->width);
+			int destH = ((screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) / this->height);
+			int destX = (GAME_MARGIN_LEFT + (i * destW));
+			int destY = (GAME_MARGIN_TOP + (j * destH));
 
 			this->grid[i][j].set_src(16, 0, 16, 16);
 			this->grid[i][j].set_dest(destX, destY, destW, destH);
@@ -207,10 +211,10 @@ void MineField::update_Squares(int screenWidth, int screenHeight)
 	{
 		for (int j = 0; j < this->height; j++)
 		{
-			int destX = (GAME_MARGIN_LEFT + (i * (screenWidth / this->width)));
-			int destY = (GAME_MARGIN_TOP + (j * (screenHeight / this->height)));
-			int destW = ((screenWidth / this->width) - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
-			int destH = ((screenHeight / this->height) - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+			int destW = ((screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) / this->width);
+			int destH = ((screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) / this->height);
+			int destX = (GAME_MARGIN_LEFT + (i * destW));
+			int destY = (GAME_MARGIN_TOP + (j * destH));
 			this->grid[i][j].set_dest(destX, destY, destW, destH);
 		}
 	}

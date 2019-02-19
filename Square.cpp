@@ -59,10 +59,6 @@ void Square::reveal()
 		this->isHidden = false;
 		if (this->get_isBomb())
 		{
-			this->set_src(16, 0, 16, 16);
-		}
-		else if (this->get_neibourCounter() == 0)
-		{
 			this->set_src(32, 0, 16, 16);
 		}
 		else
