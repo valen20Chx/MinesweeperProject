@@ -186,7 +186,6 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 		default:
 			break;
 		}
-		*/
 	}
 }
 

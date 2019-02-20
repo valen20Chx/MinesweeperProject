@@ -7,6 +7,7 @@
 #include "Object.h"
 #include "MineField.h"
 #include "WallPaper.h"
+#include "Text.h"
 
 enum game_state
 {
@@ -30,6 +31,7 @@ private:
 	MineField* gameGrid;
 	int mouseXpos, mouseYpos;
 	WallPaper* mWallPaper;
+	Text* monText;
 public:
 	Game(std::string title, int width, int height, bool fullScreen);
 	~Game();

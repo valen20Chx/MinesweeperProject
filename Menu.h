@@ -19,4 +19,3 @@ public:
 	~Menu();
 	void createPlay(int destX, int destY);
 };
-

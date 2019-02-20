@@ -1,101 +1,53 @@
 #include "Text.h"
-#include <string>
 
-
-Text::Text()
+Text::Text(SDL_Renderer* pRenderer, int x, int y, int w, int h, short font_size, SDL_Color color, std::string fontPath, std::string  message)
 {
+	this->mRenderer = pRenderer;
+
+	this->mFont = TTF_OpenFont(fontPath.c_str(), font_size);
+	if (!this->mFont) std::cout << "Font Error" << std::endl;
+
+	this->color = color;
+
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(this->mFont, this->text.c_str(), this->color);
+	if (!surfaceMessage) std::cout << "Surface Error" << std::endl;
+	else
+	{
+		this->rect_dest.x = x;
+		this->rect_dest.y = y;
+	}
+
+	this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, surfaceMessage);
+	SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
+
+	SDL_FreeSurface(surfaceMessage);
 }
 
-
-/* --------------------------------------------------------------------------
-   Create_text
-   --------------------------------------------------------------------------
-   Fonction privee de creation de texte.
-   --------------------------------------------------------------------------
-   E: Pointeur de la surface sur laquelle rendre le texte.
-   E: Position X du texte.
-   E: Position Y du texte.
-   E: Taille de la police.
-   E: Couleur de la police (a creer avec la fonction SDL_MapRGB).
-   E: Nom de la police a utiliser.
-   E: Texte a rendre.
-   S:
-   -------------------------------------------------------------------------- */
-
- Text::Text(SDL_Renderer * p_renderer,
-	int x, int y,
-	short font_size, Uint32 i_color,
-	std::string font_way, std::string  message) //const char si pas string
+Text::~Text()
 {
-	this->p_font = NULL;
-	this->font_way = font_way;
-	SDL_Surface   *   s_text = NULL;
-	SDL_Surface *p_screen = SDL_CreateRGBSurface(SDL_SWSURFACE,200,200,);
-	this->text = message;
-
-	/* ----- Initialisation de SDL_ttf ----- */
-	if (TTF_Init() < 0)
-	{
-		printf("TTF_Init: %s\n", TTF_GetError());
-	}
-
-
-	/* ----- Chargement de toutes les donnees necessaires ----- */
-
-	/* Recuperation des informations de couleurs. */
-	this->color.r = (i_color & SDL_MapRGB(p_screen->format, 255, 0, 0)) >> 16;
-	this->color.g = (i_color & SDL_MapRGB(p_screen->format, 0, 255, 0)) >> 8;
-	this->color.b = (i_color & SDL_MapRGB(p_screen->format, 0, 0, 255));
-
-
-	/* Chargement de la police */
-	p_font = TTF_OpenFont(font_way.c_str(), font_size); //C:\Windows\Fonts
-
-	if (!p_font)
-	{
-		std::cout << "erreur police" << std::endl;
-	}
-
-
-	/* ----- Rendu du texte ----- */
-
-	/* Mise en place du message sur la surface de jeu */
-	if (s_text == NULL)
-	{
-		std::cout << "erreur affichage sur la surface" << std::endl;
-
-	}
-	else if (s_text != NULL)
-	{
-		rect_dest.x = x;
-		rect_dest.y = y;
-		rect_dest.w = s_text->w;
-		rect_dest.h = s_text->h;
-
-		/* .......*/
-		this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, s_text);
-		SDL_FreeSurface(s_text);
-	}
-
-	/* Fermeture de la police */
-
+	SDL_DestroyTexture(this->mTexture);
+	TTF_CloseFont(this->mFont);
 }
 
+void Text::update(std::string message)
+{
+	SDL_Surface *tSurface;
 
+	tSurface = TTF_RenderText_Solid(this->mFont, message.c_str(), this->color);
+	if (tSurface == NULL) std::cout << "Surface Error" << std::endl;
+	else
+	{
+		SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
+	}
 
- Text::~Text()
- {
-	 TTF_CloseFont(p_font);
-	 TTF_Quit();
- }
+	this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, tSurface);
 
- void Text::update(std::string message) {SDL_Surface *s_text;s_text = TTF_RenderText_Solid(this->p_font, message.c_str(), this->color); }
+	SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
 
- void Text::draw() {
-	 SDL_Rect rect;
-	 rect.x = 0;
-	 rect.y = 0;
-	 rect.w = this->rect_dest.w;
-	 rect.h = this->rect_dest.h;
-	 SDL_RenderCopy(this->mRenderer, this->mTexture, &rect, &rect_dest);
- }
+	SDL_FreeSurface(tSurface);
+}
+
+void Text::draw()
+{
+	SDL_RenderCopy(this->mRenderer, this->mTexture, NULL, &this->rect_dest);
+}

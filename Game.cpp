@@ -9,6 +9,7 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
+	TTF_Init();
 
 	SDL_CreateWindowAndRenderer(this->width, this->height, SDL_WINDOW_RESIZABLE, &this->mWindow, &this->mRenderer);
 
@@ -17,14 +18,14 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	//this->star.set_src(0, 0, 16, 16);
 	//this->star.set_dest(50, 50, 200, 200);
 	//this->star.setImage("Ressources/Image/book.png", this->mRenderer);
-	
+
 	this->gameGrid = new MineField(10, 10, 5, 3);
 	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
 
 	this->mWallPaper = new WallPaper(32, 32, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
 
-	this->monText = new Text(this->mRenderer, 100, 10, 20, 255000000, "Ressources/Font/OpenSans-Bold.ttf","test lessage");
+	this->monText = new Text(this->mRenderer, 100, 10, 100, 25, 20, {255, 0, 0, 255}, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "Test Message");
 
 	this->loop();
 }
@@ -34,6 +35,7 @@ Game::~Game()
 	SDL_DestroyRenderer(this->mRenderer);
 	SDL_DestroyWindow(this->mWindow);
 
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }

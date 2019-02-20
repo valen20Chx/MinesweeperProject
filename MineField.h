@@ -15,6 +15,11 @@
 #define GAME_MARGIN_BOTTOM 20
 #define GAME_MARGIN_RIGHT 20
 
+#define MF_STATE_NONE 0
+#define MF_STATE_STARTED 1
+#define MF_STATE_LOSS 2
+#define MF_STATE_WON 3
+
 class MineField
 {
 private:
@@ -40,6 +45,7 @@ public:
 	void draw_gridASCII();
 	void printStats();
 	void play(int playType, int x, int y, int screenWidth, int screenHeight);
+	void play_reveal(int x, int y);
 	void set_Squares(int screenWidth, int screenHeight, SDL_Renderer* screenRenderer);
 	void update_Squares(int screenWidth, int screenHeight);
 	void draw(SDL_Renderer* renderer);
