@@ -84,6 +84,8 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 			}
 		}
 	}
+	this->state = MF_STATE_STARTED;
+	this->startTime = SDL_GetTicks();
 }
 
 
@@ -184,6 +186,61 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 		default:
 			break;
 		}
+		*/
+	}
+}
+
+void MineField::play_reveal(int x, int y)
+{
+	if (this->grid[x][y].get_isHidden() && !this->grid[x][y].get_isFlagged())
+	{
+		std::cout << "play_reveal called for : (" << x << ";" << y << ")" << std::endl;
+		if (this->grid[x][y].get_isBomb())
+		{
+			this->grid[x][y].reveal();
+			//Lose
+			this->state = MF_STATE_LOSS;
+			this->endTime = SDL_GetTicks();
+		}
+		else
+		{
+			this->grid[x][y].reveal();
+			if (this->grid[x][y].get_neibourCounter() == 0)
+			{
+				if (x > 0)
+				{
+					this->play_reveal(x - 1, y);
+					if (y > 0)
+					{
+						this->play_reveal(x - 1, y - 1);
+					}
+					if (y < (this->height - 1))
+					{
+						this->play_reveal(x - 1, y + 1);
+					}
+				}
+				if (x < (this->width - 1))
+				{
+					this->play_reveal(x + 1, y);
+					if (y > 0)
+					{
+						this->play_reveal(x + 1, y - 1);
+					}
+					if (y < (this->height - 1))
+					{
+						this->play_reveal(x + 1, y + 1);
+					}
+				}
+				if (y > 0)
+				{
+					this->play_reveal(x, y - 1);
+				}
+				if (y < (this->height - 1))
+				{
+					this->play_reveal(x, y + 1);
+				}
+			}
+		}
 	}
 }
 
@@ -231,5 +288,35 @@ void MineField::draw(SDL_Renderer* renderer)
 
 			SDL_RenderCopyEx(renderer, this->grid[i][j].get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
 		}
+	}
+}
+
+void MineField::update()
+{
+	bool allBombsFlag = true;
+	for (int i = 0; i < this->nbBombs; i++)
+	{
+		if (!this->grid[bombsPos[i].x][bombsPos[i].y].get_isFlagged())
+			allBombsFlag = false;
+	}
+	if (allBombsFlag)
+	{
+		unsigned int time = this->getRuningTicks();
+		std::cout << "Won by finding all the Bombs in " << time << " ms" << std::endl;
+		this->state = MF_STATE_WON;
+		this->endTime = SDL_GetTicks();
+	}
+}
+
+// Return numbers of miliseconds since start of MineField
+unsigned MineField::getRuningTicks()
+{
+	if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
+	{
+		return (SDL_GetTicks() - this->startTime);
+	}
+	else
+	{
+		return (this->endTime - startTime);
 	}
 }

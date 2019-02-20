@@ -21,6 +21,9 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	this->gameGrid = new MineField(10, 10, 5, 3);
 	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
+
+	this->mWallPaper = new WallPaper(32, 32, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
+
 	this->monText = new Text(this->mRenderer, 100, 10, 20, 255000000, "Ressources/Font/OpenSans-Bold.ttf","test lessage");
 
 	this->loop();
@@ -87,6 +90,7 @@ void Game::input()
 		{
 			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
 			this->gameGrid->update_Squares(this->width, this->height);
+			this->mWallPaper->update(this->width, this->height);
 			std::cout << "Change Size : (" << this->width << ";" << this->height << ")" << std::endl;
 		}
 	}
@@ -109,6 +113,7 @@ void Game::render()
 	//this->draw(star);
 	this->monText->draw();
 
+	this->mWallPaper->draw();
 	this->drawMinefield();
 
 	this->frameCount++;
