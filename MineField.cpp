@@ -2,10 +2,12 @@
 
 MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 {
+	this->state = MF_STATE_NONE;
 	this->width = width;
 	this->height = height;
 	this->percentBomb = percentBomb;
 	this->seed = seed;
+	this->nbFlags = 0;
 
 	this->grid.resize(width);
 
@@ -13,7 +15,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 	{
 		this->grid[i].resize(height);
 	}
-	
+
 	this->nbBombs = (((width * height) * percentBomb) / 100);
 
 	srand(this->seed);
@@ -30,9 +32,15 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 
 			if (!this->grid[tempX][tempY].get_isBomb())
 			{
+				SDL_Point tempPoint;
 				correctPlacement = true;
 
+				tempPoint.x = tempX;
+				tempPoint.y = tempY;
+
 				this->grid[tempX][tempY] = new Square(true);
+
+				this->bombsPos.push_back(tempPoint);
 			}
 		}
 	}
@@ -41,7 +49,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 	{
 		for (int i = 0; i < this->width; i++)
 		{
-			if(!this->grid[i][j].get_isBomb())
+			if (!this->grid[i][j].get_isBomb())
 			{
 				int nbB = 0;
 				if (i != 0)
@@ -74,10 +82,10 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 					if (this->grid[i + 1][j].get_isBomb()) nbB++;
 				}
 
-				if(j != 0)
+				if (j != 0)
 					if (this->grid[i][j - 1].get_isBomb()) nbB++;
 
-				if(j != (height - 1))
+				if (j != (height - 1))
 					if (this->grid[i][j + 1].get_isBomb()) nbB++;
 
 				this->grid[i][j].set_neibourCounter(nbB);
@@ -116,6 +124,26 @@ std::vector<std::vector<Square>> MineField::get_grid()
 Square MineField::get_square(int x, int y)
 {
 	return this->grid[x][y];
+}
+
+int MineField::get_state()
+{
+	return this->state;
+}
+
+void MineField::set_state(int state)
+{
+	this->state = state;
+}
+
+int MineField::get_nbFlags()
+{
+	return this->nbFlags;
+}
+
+void MineField::set_nbFlags(int nbFlags)
+{
+	this->nbFlags = nbFlags;
 }
 
 void MineField::draw_gridASCII()
@@ -171,21 +199,60 @@ void MineField::printStats()
 void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
 {
 	// Si dans zone de jeu
-	if (x > GAME_MARGIN_LEFT && x < (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) && y > GAME_MARGIN_TOP && y < (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)))
+	if (x > GAME_MARGIN_LEFT && x < (screenWidth - (GAME_MARGIN_RIGHT)) && y > GAME_MARGIN_TOP && y < (screenHeight - (GAME_MARGIN_BOTTOM)))
 	{
+		/* / / / TO FIX
 		int xGrid = ((x - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) * this->width) / (screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT));
 		int yGrid = ((y - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) * this->height) / (screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM));
+		*/
+
+		for (int i = 0; i < this->width; i++)
+		{
+			for (int j = 0; j < this->height; j++)
+			{
+				int tX = this->grid[i][j].get_dest().x;
+				int tY = this->grid[i][j].get_dest().y;
+				int tW = this->grid[i][j].get_dest().w;
+				int tH = this->grid[i][j].get_dest().h;
+
+				if (x > tX && x < (tX + tW) && y > tY && y < (tY + tH))
+				{
+					switch (playType)
+					{
+					case PLAY_DIG:
+						this->play_reveal(i, j);
+						break;
+					case PLAY_FLAG:
+						if (this->grid[i][j].get_isHidden())
+						{
+							if (this->grid[i][j].get_isFlagged())
+								this->nbFlags--;
+							else this->nbFlags++;
+
+							this->grid[i][j].set_isFlagged(!this->grid[i][j].get_isFlagged());
+						}
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+
+		/* CONTINUITY OF PREVIOUS VERSION CLICK CONTROL
 		switch (playType)
 		{
 		case PLAY_DIG:
-			this->grid[xGrid][yGrid].reveal();
+			this->play_reveal(i, j);
 			break;
 		case PLAY_FLAG:
-			this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
+			if(this->grid[i][j].get_isHidden())
+				this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
 			break;
 		default:
 			break;
 		}
+		*/
 	}
 }
 
@@ -249,7 +316,7 @@ void MineField::set_Squares(int screenWidth, int screenHeight, SDL_Renderer* scr
 	{
 		for (int j = 0; j < this->height; j++)
 		{
-			int destW = ((screenWidth- (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) / this->width);
+			int destW = ((screenWidth - (GAME_MARGIN_LEFT + GAME_MARGIN_RIGHT)) / this->width);
 			int destH = ((screenHeight - (GAME_MARGIN_TOP + GAME_MARGIN_BOTTOM)) / this->height);
 			int destX = (GAME_MARGIN_LEFT + (i * destW));
 			int destY = (GAME_MARGIN_TOP + (j * destH));

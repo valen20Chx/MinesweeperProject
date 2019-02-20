@@ -3,6 +3,7 @@
 Text::Text(SDL_Renderer* pRenderer, int x, int y, int w, int h, short font_size, SDL_Color color, std::string fontPath, std::string  message)
 {
 	this->mRenderer = pRenderer;
+	this->text = message;
 
 	this->mFont = TTF_OpenFont(fontPath.c_str(), font_size);
 	if (!this->mFont) std::cout << "Font Error" << std::endl;
