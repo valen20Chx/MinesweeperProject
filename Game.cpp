@@ -21,7 +21,10 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	this->gameGrid = new MineField(10, 10, 5, 3);
 	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
+
 	this->mWallPaper = new WallPaper(32, 32, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
+
+	this->monText = new Text(this->mRenderer, 100, 10, 20, 255000000, "Ressources/Font/OpenSans-Bold.ttf","test lessage");
 
 	this->loop();
 }
@@ -78,14 +81,10 @@ void Game::input()
 		if(eventListener.type == SDL_MOUSEBUTTONDOWN)
 		{
 			SDL_GetMouseState(&this->mouseXpos, &this->mouseYpos);
-			if (this->gameGrid->get_state() != MF_STATE_LOSS && this->gameGrid->get_state() != MF_STATE_WON)
-			{
-				if (eventListener.button.button == SDL_BUTTON_LEFT)
-					this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
-				if (eventListener.button.button == SDL_BUTTON_RIGHT)
-					this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
-				this->gameGrid->update();
-			}
+			if(eventListener.button.button == SDL_BUTTON_LEFT)
+				this->gameGrid->play(PLAY_DIG, mouseXpos, mouseYpos, this->width, this->height);
+			if(eventListener.button.button == SDL_BUTTON_RIGHT)
+				this->gameGrid->play(PLAY_FLAG, mouseXpos, mouseYpos, this->width, this->height);
 		}
 		if(eventListener.window.event == SDL_WINDOWEVENT_RESIZED)
 		{
@@ -112,6 +111,7 @@ void Game::render()
 	SDL_RenderFillRect(this->mRenderer, &rect);
 
 	//this->draw(star);
+	this->monText->draw();
 
 	this->mWallPaper->draw();
 	this->drawMinefield();
