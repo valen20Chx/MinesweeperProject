@@ -19,13 +19,13 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	//this->star.set_dest(50, 50, 200, 200);
 	//this->star.setImage("Ressources/Image/book.png", this->mRenderer);
 
-	this->gameGrid = new MineField(10, 10, 5, 3);
+	this->gameGrid = new MineField(10, 10, 5, 123);
 	this->gameGrid->set_Squares(this->width, this->height, this->mRenderer);
 
 
 	this->mWallPaper = new WallPaper(32, 32, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
 
-	this->monText = new Text(this->mRenderer, 100, 10, 100, 25, 20, {255, 0, 0, 255}, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "Test Message");
+	this->monText = new Text(this->mRenderer, 100, 10, 40, {0, 0, 0, 255}, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "Test Message");
 
 	this->loop();
 }
@@ -95,6 +95,7 @@ void Game::input()
 		{
 			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
 			this->gameGrid->update_Squares(this->width, this->height);
+			this->mWallPaper->update(this->width, this->height);
 			std::cout << "Change Size : (" << this->width << ";" << this->height << ")" << std::endl;
 		}
 	}
@@ -119,6 +120,8 @@ void Game::render()
 
 	this->mWallPaper->draw();
 	this->drawMinefield();
+
+	this->monText->draw();
 
 	this->frameCount++;
 	int timerFPS = SDL_GetTicks() - lastFrame;

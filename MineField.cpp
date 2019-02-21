@@ -266,6 +266,7 @@ void MineField::play_reveal(int x, int y)
 			this->grid[x][y].reveal();
 			//Lose
 			this->state = MF_STATE_LOSS;
+			std::cout << "You lost by stepping on a mine :( *Boom* " << std::endl;
 			this->endTime = SDL_GetTicks();
 		}
 		else

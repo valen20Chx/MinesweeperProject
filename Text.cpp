@@ -1,6 +1,6 @@
 #include "Text.h"
 
-Text::Text(SDL_Renderer* pRenderer, int x, int y, int w, int h, short font_size, SDL_Color color, std::string fontPath, std::string  message)
+Text::Text(SDL_Renderer* pRenderer, int x, int y, short font_size, SDL_Color color, std::string fontPath, std::string  message)
 {
 	this->mRenderer = pRenderer;
 	this->text = message;
@@ -16,10 +16,10 @@ Text::Text(SDL_Renderer* pRenderer, int x, int y, int w, int h, short font_size,
 	{
 		this->rect_dest.x = x;
 		this->rect_dest.y = y;
-	}
 
-	this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, surfaceMessage);
-	SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
+		this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, surfaceMessage);
+		SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
+	}
 
 	SDL_FreeSurface(surfaceMessage);
 }
