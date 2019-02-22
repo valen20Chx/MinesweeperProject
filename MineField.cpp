@@ -214,7 +214,7 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 				int tY = this->grid[i][j].get_dest().y;
 				int tW = this->grid[i][j].get_dest().w;
 				int tH = this->grid[i][j].get_dest().h;
-
+				//si x et y  sont dans la case grid[i][j]
 				if (x > tX && x < (tX + tW) && y > tY && y < (tY + tH))
 				{
 					switch (playType)
@@ -369,7 +369,7 @@ void MineField::update()
 	if (allBombsFlag)
 	{
 		unsigned int time = this->getRuningTicks();
-		std::cout << "Won by finding all the Bombs in " << time << " ms" << std::endl;
+		std::cout << "Won by finding all the Bombs in [" << time << " ms]" << std::endl;
 		this->state = MF_STATE_WON;
 		this->endTime = SDL_GetTicks();
 	}

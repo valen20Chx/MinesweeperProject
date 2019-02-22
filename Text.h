@@ -10,7 +10,7 @@
 
 class Text
 {
-private:
+protected:
 	std::string text;
 	SDL_Renderer* mRenderer;
 	SDL_Texture *mTexture;
@@ -20,6 +20,8 @@ private:
 public:
 	Text(SDL_Renderer* pRenderer, int x, int y, short font_size, SDL_Color color, std::string fontPath, std::string  message);
 	~Text();
+	Text();
 	void update(std::string message);
 	void draw();
+	
 };

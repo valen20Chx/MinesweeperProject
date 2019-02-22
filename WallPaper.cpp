@@ -25,7 +25,7 @@ WallPaper::~WallPaper()
 
 void WallPaper::draw()
 {
-	//std::cout << "Test" << std::endl;
+	//std::cout << "Test draw wallpaper" << std::endl;
 	SDL_Rect dest;
 	SDL_Rect src;
 
