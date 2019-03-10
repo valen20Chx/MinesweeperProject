@@ -96,6 +96,101 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 	this->startTime = SDL_GetTicks();
 }
 
+MineField::MineField(MinefieldSettings minefieldSettings)
+{
+	this->state = MF_STATE_NONE;
+	this->width = minefieldSettings.width;
+	this->height = minefieldSettings.height;
+	this->percentBomb = minefieldSettings.percentBomb;
+	this->seed = minefieldSettings.seed;
+	this->nbFlags = 0;
+
+	this->grid.resize(this->width);
+
+	for (int i = 0; i < this->grid.size(); i++)
+	{
+		this->grid[i].resize(this->height);
+	}
+
+	this->nbBombs = (((this->width * this->height) * this->percentBomb) / 100);
+
+	srand(this->seed);
+
+	for (int ctor = 0; ctor < this->nbBombs; ctor++)
+	{
+		bool correctPlacement = false;
+
+		while (!correctPlacement)
+		{
+			int tempX, tempY;
+			tempX = rand() % this->width;
+			tempY = rand() % this->height;
+
+			if (!this->grid[tempX][tempY].get_isBomb())
+			{
+				SDL_Point tempPoint;
+				correctPlacement = true;
+
+				tempPoint.x = tempX;
+				tempPoint.y = tempY;
+
+				this->grid[tempX][tempY] = new Square(true);
+
+				this->bombsPos.push_back(tempPoint);
+			}
+		}
+	}
+
+	for (int j = 0; j < this->height; j++)
+	{
+		for (int i = 0; i < this->width; i++)
+		{
+			if (!this->grid[i][j].get_isBomb())
+			{
+				int nbB = 0;
+				if (i != 0)
+				{
+					if (j != 0)
+					{
+						if (this->grid[i - 1][j - 1].get_isBomb()) nbB++;
+					}
+
+					if (j != (height - 1))
+					{
+						if (this->grid[i - 1][j + 1].get_isBomb()) nbB++;
+					}
+
+					if (this->grid[i - 1][j].get_isBomb()) nbB++;
+				}
+
+				if (i != (width - 1))
+				{
+					if (j != 0)
+					{
+						if (this->grid[i + 1][j - 1].get_isBomb()) nbB++;
+					}
+
+					if (j != (height - 1))
+					{
+						if (this->grid[i + 1][j + 1].get_isBomb()) nbB++;
+					}
+
+					if (this->grid[i + 1][j].get_isBomb()) nbB++;
+				}
+
+				if (j != 0)
+					if (this->grid[i][j - 1].get_isBomb()) nbB++;
+
+				if (j != (height - 1))
+					if (this->grid[i][j + 1].get_isBomb()) nbB++;
+
+				this->grid[i][j].set_neibourCounter(nbB);
+			}
+		}
+	}
+	this->state = MF_STATE_STARTED;
+	this->startTime = SDL_GetTicks();
+}
 
 MineField::~MineField()
 {
@@ -196,6 +291,26 @@ void MineField::printStats()
 	std::cout << "Percentage : " << this->percentBomb << std::endl;
 }
 
+void MineField::input(SDL_Event* eventListener, int width, int height)
+{
+	if (eventListener->type == SDL_MOUSEBUTTONDOWN)
+	{
+		int mouseXpos, mouseYpos;
+		SDL_GetMouseState(&mouseXpos, &mouseYpos);
+		if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
+		{
+			if (eventListener->button.button == SDL_BUTTON_LEFT)
+			{
+				this->play(PLAY_DIG, mouseXpos, mouseYpos, width, height);
+			}
+			if (eventListener->button.button == SDL_BUTTON_RIGHT)
+			{
+				this->play(PLAY_FLAG, mouseXpos, mouseYpos, width, height);
+			}
+		}
+	}
+}
+
 void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
 {
 	// Si dans zone de jeu
@@ -255,6 +370,7 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 		*/
 	}
 }
+
 
 void MineField::play_reveal(int x, int y)
 {

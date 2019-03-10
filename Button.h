@@ -1,25 +1,26 @@
 #pragma once
 
 #include"Object.h"
+
 class Button : public Object
 {
 protected:
-	std::string pathPressed, pathPassif;
 	SDL_Texture* texturePressed;
+	SDL_Texture* textureRest;
+	SDL_Rect btnRectDest;
+	SDL_Rect btnRectSrc;
 	bool action = false;
+	bool isPressed;
 	bool isSquare = false;
 	SDL_Renderer* mRenderer;
+	void(*func)();
 public:
-	Button();
 	~Button();
-	Button(SDL_Rect src, SDL_Rect dest,bool isSquare, SDL_Renderer* pRenderer);
-	
-	void setPath(std::string pathPassif, std::string pathPressed);
-	virtual void updateBtn(int WinW, int WinH);
-	void btnClic_down(int mouseX, int mouseY);
-	void btnClic_up(int mouseX, int mouseY);
+	Button(SDL_Rect src, SDL_Rect dest, bool isSquare, void(*func)(), std::string pathRest, std::string pathPressed, SDL_Renderer* pRenderer);
+	virtual void updateBtnPos(int WinW, int WinH);
+	void input(SDL_Event* eventListener);
 	void draw();
 	bool get_action();
-	void set_action(bool faux);
+	void set_action(bool action);
 };
 

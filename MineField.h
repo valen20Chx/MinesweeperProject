@@ -21,6 +21,12 @@
 #define MF_STATE_WON 2
 #define MF_STATE_LOSS 3
 
+typedef struct {
+	int width;
+	int height;
+	int percentBomb;
+	unsigned int seed;
+} MinefieldSettings;
 
 class MineField
 {
@@ -39,6 +45,7 @@ private:
 	SDL_Renderer* mRenderer;
 public:
 	MineField(int width, int height, int percentBomb, unsigned int seed);
+	MineField(MinefieldSettings minefieldSettings);
 	~MineField();
 	int get_width();
 	int get_height();
@@ -58,4 +65,5 @@ public:
 	void draw(SDL_Renderer* renderer);
 	void update();
 	unsigned int getRuningTicks();
+	void input(SDL_Event* eventListener, int width, int height);
 };

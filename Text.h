@@ -25,5 +25,4 @@ public:
 	void draw();
 	void update_size(int diffWinW, int diffWinH);
 	void set_rect_dest(int x, int y);
-	
 };

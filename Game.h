@@ -3,12 +3,7 @@
 #include <iostream>
 #include <string>
 #include <SDL.h>
-
-#include "Object.h"
-#include "MineField.h"
-#include "WallPaper.h"
-#include "Text.h"
-#include "ButtonText.h"
+#include "MainMenu.h"
 #include "StateInGame.h"
 
 enum game_state
@@ -16,7 +11,7 @@ enum game_state
 	GAME_STATE_MAIN_MENU,
 	GAME_STATE_IN_GAME,
 	GAME_STATE_SETTINGS,
-	GAME_STATE_GAME_OVER
+	GAME_STATE_SCOREBOARD
 };
 
 class Game
@@ -28,14 +23,8 @@ private:
 	SDL_Window* mWindow;
 	SDL_Renderer* mRenderer;
 	int count, frameCount, timerFPS, lastFrame;
-	Object star;
 	int gameState;
-	int mouseXpos, mouseYpos;
-	WallPaper* mWallPaper;
-	Text* monText;
-	Button* btnFermer;
-	ButtonText* btnMenu;
-	StateInGame* inGame;
+	Scene* gameScene;
 public:
 	Game(std::string title, int width, int height, bool fullScreen);
 	~Game();
@@ -43,9 +32,9 @@ public:
 	void update();
 	void input();
 	void render();
-	
-	void draw(Object obj);
-	void draMenu() {};
-
-	void act_fermer();
+	void switchToMainMenu();
+	void switchToGameSettings() {}; //TODO
+	void switchToInGame() {}; //TODO
+	void switchToScoreBoard() {}; //TODO
+	void quitGame();
 };

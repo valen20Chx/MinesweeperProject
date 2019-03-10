@@ -125,23 +125,63 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonText.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MineField.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Square.h" />
+    <ClInclude Include="StateInGame.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="WallPaper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonText.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MineField.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Square.cpp" />
+    <ClCompile Include="StateInGame.cpp" />
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="WallPaper.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitattributes" />
+    <None Include="libfreetype-6.dll" />
+    <None Include="libjpeg-9.dll" />
+    <None Include="libpng16-16.dll" />
+    <None Include="libtiff-5.dll" />
+    <None Include="libwebp-7.dll" />
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="SDL2_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Bold.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-BoldItalic.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBold.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBoldItalic.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Italic.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Light.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-LightItalic.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Regular.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBold.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBoldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ressources\Image\Default\Background_Repeat_01.png" />
+    <Image Include="Ressources\Image\Default\Button_Default_Empty_Pressed.png" />
+    <Image Include="Ressources\Image\Default\Button_Default_Empty_Rest.png" />
+    <Image Include="Ressources\Image\Default\Button_Quit_Pressed.png" />
+    <Image Include="Ressources\Image\Default\Button_Quit_Rest.png" />
+    <Image Include="Ressources\Image\Default\Sprite_Default.png" />
+    <Image Include="Ressources\Image\Default\Sprite_Default_Empty.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

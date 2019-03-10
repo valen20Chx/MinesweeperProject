@@ -38,12 +38,9 @@ void Text::update(std::string message)
 	if (tSurface == NULL) std::cout << "Surface Error" << std::endl;
 	else
 	{
+		this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, tSurface);
 		SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
 	}
-
-	this->mTexture = SDL_CreateTextureFromSurface(this->mRenderer, tSurface);
-
-	SDL_QueryTexture(this->mTexture, NULL, NULL, &this->rect_dest.w, &this->rect_dest.h);
 
 	SDL_FreeSurface(tSurface);
 }

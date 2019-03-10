@@ -1,7 +1,5 @@
 #include "Scene.h"
 
-
-
 Scene::Scene(SDL_Renderer* pRenderer, int x, int y, int width, int height)
 {
 	this->mRenderer = pRenderer;
@@ -11,7 +9,10 @@ Scene::Scene(SDL_Renderer* pRenderer, int x, int y, int width, int height)
 	this->height = height;
 }
 
+Scene::~Scene() {};
 
-Scene::~Scene()
+void Scene::windowSizeChanged(int width, int height)
 {
+	this->width = width;
+	this->height = height;
 }

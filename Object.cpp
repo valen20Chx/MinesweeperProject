@@ -45,6 +45,5 @@ void Object::set_src(int x, int y, int w, int h)
 
 void Object::setImage(std::string path, SDL_Renderer* renderer)
 {
-	SDL_Surface* surface = IMG_Load(path.c_str());
-	this->texture = SDL_CreateTextureFromSurface(renderer, surface);
+	
 }

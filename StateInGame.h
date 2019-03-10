@@ -1,21 +1,21 @@
 #pragma once
 
 #include "Scene.h"
+
 class StateInGame : public Scene
 {
 private:
 	Text* nbFlag;
 	Text* time;
-
-public:
 	MineField* gameGrid;
 	Button* btnFermer;
-	ButtonText * btnTxtHome;
-	ButtonText* btnTxtResart;
+	Button* btnTxtHome;
+	Button* btnTxtResart;
 	Button* btnParam;
-	StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
+public:
+	StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, void(*quitFunc)(), void(*mainMenuFunc)());
 	~StateInGame();
 	void draw();
-	void Update(int diffWinW, int diffWinH);
+	void updateWindowSize(int W, int H);
+	void input(SDL_Event* eventHandler);
 };
-

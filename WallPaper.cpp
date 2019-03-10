@@ -47,7 +47,6 @@ void WallPaper::draw()
 			SDL_RenderCopy(this->wRenderer, this->mTexture, &src, &dest);
 		}
 	}
-
 }
 
 void WallPaper::setImage(std::string path)

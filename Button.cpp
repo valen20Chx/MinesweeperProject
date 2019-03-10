@@ -1,68 +1,99 @@
 #include "Button.h"
 
 
-Button::Button(SDL_Rect src, SDL_Rect dest, bool isSquare, SDL_Renderer* pRenderer)
+Button::Button(SDL_Rect src, SDL_Rect dest, bool isSquare, void(*func)(), std::string pathRest, std::string pathPressed, SDL_Renderer* pRenderer)
 {
- set_dest( dest.x, dest.y, dest.w, dest.h);
- set_src( src.x,  src.y,  src.w,  src.h);
- this->isSquare = isSquare;
- this->mRenderer = pRenderer;
+	this->btnRectDest = { dest.x, dest.y, dest.w, dest.h };
+	this->btnRectSrc = { src.x,  src.y,  src.w,  src.h };
+	this->isSquare = isSquare;
+	this->mRenderer = pRenderer;
+	this->isPressed = false;
+	this->func = func;
+
+	SDL_Surface* surface = IMG_Load(pathPressed.c_str());
+	this->texturePressed = SDL_CreateTextureFromSurface(this->mRenderer, surface);
+
+	surface = IMG_Load(pathRest.c_str());
+	this->textureRest = SDL_CreateTextureFromSurface(this->mRenderer, surface);
+
+	SDL_FreeSurface(surface);
 }
 
-
-void Button::btnClic_down(int mouseX, int mouseY)
+void Button::input(SDL_Event* eventListener)
 {
-	//si il clic sur le boutton
-	if (mouseX > this->dest.x && mouseX <(this->dest.x + this->dest.w + 1) && mouseY > this->dest.y && mouseY < (this->dest.y + this->dest.h + 1))
+	if (eventListener->type == SDL_MOUSEBUTTONDOWN)
 	{
-		setImage(this->pathPressed, this->mRenderer);
-		std::cout << "le clic est sur le boutton" << std::endl;
+		int x, y;
+		if (eventListener->button.button == SDL_BUTTON_LEFT)
+		{
+			SDL_GetMouseState(&x, &y);
+
+			if (x > this->dest.x && x <(this->dest.x + this->dest.w + 1) && y > this->dest.y && y < (this->dest.y + this->dest.h + 1))
+			{
+				this->isPressed = true;
+				std::cout << "le clic est sur le boutton" << std::endl;
+			}
+		}
+	}
+	if (eventListener->type == SDL_MOUSEBUTTONUP)
+	{
+		int x, y;
+		if (eventListener->button.button == SDL_BUTTON_LEFT)
+		{
+			SDL_GetMouseState(&x, &y);
+
+			//si il relache le clic sur le boutton
+			if (x > this->dest.x && x <(this->dest.x + this->dest.w + 1) && y > this->dest.y && y < (this->dest.y + this->dest.h + 1))
+			{
+				this->isPressed = false;
+				std::cout << "Action du clic" << std::endl;
+				this->action = true;
+				// Appel la fonction pointee par le membre func
+				if (this->func)
+					func();
+			}
+			else puts("Le clic est relacher or du boutton");
+		}
 	}
 }
-void Button::btnClic_up(int mouseX, int mouseY)
-{
-	setImage(this->pathPassif, this->mRenderer); //image passif
-	//si il relache le clic sur le boutton
-	if (mouseX > this->dest.x && mouseX <(this->dest.x + this->dest.w + 1) && mouseY > this->dest.y && mouseY < (this->dest.y + this->dest.h + 1))
-	{
-		std::cout << "Action du clic" << std::endl;
-		this->action = true;
-		/*Peut etre ajouter un parametre "nom boutton" dans cette fonction et faire un switch juste ici*/
-		/*Ou retourner une valeur dans game pour changer de fenettre et L'etat du jeu*/
-	}
-	else puts("Le clic est relacher or du boutton");
-}
 
-void Button::draw() {
+void Button::draw()
+{
 	// afficher a la position x et y
-	SDL_RenderCopy(this->mRenderer, this->texture, &this->src, &this->dest);
-}
-
-void Button::setPath(std::string pathPassif, std::string pathPressed) {
-	this->pathPassif = pathPassif;
-	this->pathPressed = pathPressed;
-	this->setImage(this->pathPassif, this->mRenderer);
-}
-
-
-void Button::updateBtn(int WinW, int WinH) {
-	//redimensionner le boutton en fonction de la fenettre
-	if (this->isSquare == false) {
-		this->dest.w = WinW / 16;
-		this->dest.h = WinH / 25;
+	if (this->isPressed)
+	{
+		SDL_RenderCopy(this->mRenderer, this->texturePressed, &this->src, &this->dest);
 	}
-	else {
-		this->dest.w = WinW / 16;
-		this->dest.h = WinH / 16;
+	else
+	{
+		SDL_RenderCopy(this->mRenderer, this->textureRest, &this->src, &this->dest);
+	}
+}
+
+void Button::updateBtnPos(int winW, int winH) // Non-Sense
+{
+	//redimensionner le boutton en fonction de la fenettre
+	if (this->isSquare == false)
+	{
+		this->dest.w = winW / 16;
+		this->dest.h = winH / 25;
+	}
+	else
+	{
+		this->dest.w = winW / 16;
+		this->dest.h = winH / 16;
 	}
  }
 
-Button::Button()
-		{
-		}
 Button::~Button()
-		{
-		}
+{}
 
-bool Button::get_action() { return this->action; }
-void Button::set_action(bool faux) { this->action = faux; }
+bool Button::get_action()
+{
+	return this->action;
+}
+
+void Button::set_action(bool action)
+{
+	this->action = action;
+}
