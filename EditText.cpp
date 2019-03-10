@@ -1,7 +1,9 @@
 #include "EditText.h"
 
-EditText::EditText()
+EditText::EditText(SDL_Renderer* pRenderer, int x, int y, int maxLength)
 {
+	this->mTextObj = new Text(pRenderer, x, y, 24, { 255, 255, 255, 255 }, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "");
+	this->maxChar = maxLength;
 }
 
 EditText::~EditText()
@@ -10,9 +12,17 @@ EditText::~EditText()
 
 void EditText::input(SDL_Event* eventListener)
 {
-	if (eventListener->type == SDL_TEXTINPUT)
+	if (eventListener->type == SDL_TEXTINPUT || SDL_KEYDOWN)
 	{
-		strcat(this->textInput.c_str, eventListener->text.text);
+		if (eventListener->type == SDL_KEYDOWN && eventListener->key.keysym.sym == SDLK_BACKSPACE && this->textInput.length() > 0)
+		{
+			this->textInput = this->textInput.substr(0, this->textInput.length() - 1);
+		}
+		else if (eventListener->type == SDL_TEXTINPUT)
+		{
+			if(this->textInput.length() < this->maxChar) this->textInput += eventListener->text.text;
+		}
+		this->mTextObj->update(this->textInput);
 	}
 	if (eventListener->type == SDL_MOUSEBUTTONDOWN)
 	{
@@ -45,5 +55,10 @@ void EditText::input(SDL_Event* eventListener)
 
 std::string EditText::getText()
 {
+	return this->textInput;
+}
 
+void EditText::draw()
+{
+	this->mTextObj->draw();
 }

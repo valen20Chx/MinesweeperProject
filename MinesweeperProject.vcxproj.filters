@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{13af7535-bf7c-4881-930e-cc67b03e98e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Fonts">
+      <UniqueIdentifier>{767dc306-be6b-44c9-8dfa-7326fbb7a969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{b6238016-4bc1-4d46-9c71-2b7d7d066b4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -46,6 +55,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -86,51 +104,96 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EditText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="SDL2_ttf.dll" />
-    <None Include="SDL2_image.dll" />
-    <None Include="SDL2.dll" />
-    <None Include="libwebp-7.dll" />
-    <None Include="libfreetype-6.dll" />
-    <None Include="libjpeg-9.dll" />
-    <None Include="libpng16-16.dll" />
-    <None Include="libtiff-5.dll" />
     <None Include=".gitattributes" />
+    <None Include="SDL2_ttf.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="libfreetype-6.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="libjpeg-9.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="libpng16-16.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="libtiff-5.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="libwebp-7.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="SDL2.dll">
+      <Filter>Libraries</Filter>
+    </None>
+    <None Include="SDL2_image.dll">
+      <Filter>Libraries</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-Bold.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-BoldItalic.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBold.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBoldItalic.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-Italic.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-Light.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-LightItalic.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-Regular.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBold.ttf" />
-    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBoldItalic.ttf" />
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBoldItalic.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Bold.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-BoldItalic.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBold.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Italic.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Light.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-LightItalic.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-Regular.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
+    <Font Include="Ressources\Font\Open_Sans\OpenSans-SemiBold.ttf">
+      <Filter>Resource Files\Fonts</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Ressources\Image\Default\Sprite_Default_Empty.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Ressources\Image\Default\Button_Quit_Rest.png">
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Ressources\Image\Default\Background_Repeat_01.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Ressources\Image\Default\Button_Default_Empty_Pressed.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Ressources\Image\Default\Button_Default_Empty_Rest.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Ressources\Image\Default\Button_Quit_Pressed.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
-    <Image Include="Ressources\Image\Default\Button_Quit_Rest.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Ressources\Image\Default\Sprite_Default_Empty.png">
+      <Filter>Resource Files\Images</Filter>
     </Image>
     <Image Include="Ressources\Image\Default\Sprite_Default.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
   </ItemGroup>
 </Project>

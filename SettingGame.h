@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-class SettingGame
+class SettingGame : public 
 {
 private:
 	Text* mDifficutyTxt;
@@ -19,14 +19,15 @@ private:
 
 	ButtonText* mBtnTxtPlay;
 public:
-	SettingGame();
-	~SettingGame();
+	SettingGame(this->mRenderer, 0, 0, this->width, this->height)
+		~SettingGame();
 	void onClicEasy();
 	void onClicAverage();
 	void onClicHard();
 	void onClicSmall();
 	void onClicMedium();
 	void onClicLarge();
+	
 
 };
 

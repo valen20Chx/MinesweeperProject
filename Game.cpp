@@ -114,3 +114,9 @@ void Game::quitGame()
 {
 	this->isRunning = false;
 }
+
+void Game::switchToGameSettings()
+{
+	this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height);
+	this->gameState = GAME_STATE_SETTINGS;
+}

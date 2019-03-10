@@ -127,11 +127,14 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonText.h" />
+    <ClInclude Include="EditText.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MineField.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SettingGame.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="StateInGame.h" />
     <ClInclude Include="Text.h" />
@@ -140,12 +143,15 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonText.cpp" />
+    <ClCompile Include="EditText.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MineField.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SettingGame.cpp" />
     <ClCompile Include="Square.cpp" />
     <ClCompile Include="StateInGame.cpp" />
     <ClCompile Include="Text.cpp" />
