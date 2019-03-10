@@ -20,7 +20,10 @@ void EditText::input(SDL_Event* eventListener)
 		}
 		else if (eventListener->type == SDL_TEXTINPUT)
 		{
-			if(this->textInput.length() < this->maxChar) this->textInput += eventListener->text.text;
+			if (this->textInput.length() < this->maxChar)
+			{
+				this->textInput += eventListener->text.text;
+			}
 		}
 		this->mTextObj->update(this->textInput);
 	}
@@ -31,7 +34,7 @@ void EditText::input(SDL_Event* eventListener)
 		{
 			SDL_GetMouseState(&x, &y);
 
-			if (x > this->xPos && x <(this->xPos + this->width + 1) && y > this->yPos && y < (this->yPos + this->height + 1))
+			if (x > this->mTextObj->getDestRect().x && x <(this->mTextObj->getDestRect().x + this->mTextObj->getDestRect().w + 1) && y > this->mTextObj->getDestRect().y && y < (this->mTextObj->getDestRect().y + this->mTextObj->getDestRect().h + 1))
 			{
 				if (!this->isFocused)
 				{
