@@ -52,3 +52,13 @@ void Text::draw()
 {
 	SDL_RenderCopy(this->mRenderer, this->mTexture, NULL, &this->rect_dest);
 }
+
+void Text::update_size(int diffWinW, int diffWinH) {
+	this->font_size += ((diffWinH + diffWinW) / 2);
+}
+
+void Text::set_rect_dest(int x, int y) {
+	this->rect_dest.x = x;
+	this->rect_dest.y = y;
+
+}

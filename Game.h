@@ -8,6 +8,8 @@
 #include "MineField.h"
 #include "WallPaper.h"
 #include "Text.h"
+#include "ButtonText.h"
+#include "StateInGame.h"
 
 enum game_state
 {
@@ -28,10 +30,12 @@ private:
 	int count, frameCount, timerFPS, lastFrame;
 	Object star;
 	int gameState;
-	MineField* gameGrid;
 	int mouseXpos, mouseYpos;
 	WallPaper* mWallPaper;
 	Text* monText;
+	Button* btnFermer;
+	ButtonText* btnMenu;
+	StateInGame* inGame;
 public:
 	Game(std::string title, int width, int height, bool fullScreen);
 	~Game();
@@ -39,7 +43,9 @@ public:
 	void update();
 	void input();
 	void render();
-	void drawMinefield();
+	
 	void draw(Object obj);
 	void draMenu() {};
+
+	void act_fermer();
 };

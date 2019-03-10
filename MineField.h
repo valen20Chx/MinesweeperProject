@@ -36,6 +36,7 @@ private:
 	std::vector<SDL_Point> bombsPos;
 	unsigned int startTime;
 	unsigned int endTime;
+	SDL_Renderer* mRenderer;
 public:
 	MineField(int width, int height, int percentBomb, unsigned int seed);
 	~MineField();

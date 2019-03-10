@@ -3,18 +3,23 @@
 #include"Object.h"
 class Button : public Object
 {
-private:
-	std::string btnNom;
-	int mouseX, mouseY;
+protected:
 	std::string pathPressed, pathPassif;
 	SDL_Texture* texturePressed;
-
+	bool action = false;
+	bool isSquare = false;
+	SDL_Renderer* mRenderer;
 public:
 	Button();
 	~Button();
-	Button(std::string btnNom, int srcX, int srcY, int srcW, int srcH, int destX, int destY, int destW, int destH);
-	void setImagePressed(std::string pathPressed, SDL_Renderer* renderer);
-	void estCliquer(int mouseX, int mouseY, SDL_Renderer* renderer);
-	void setClicPos();
+	Button(SDL_Rect src, SDL_Rect dest,bool isSquare, SDL_Renderer* pRenderer);
+	
+	void setPath(std::string pathPassif, std::string pathPressed);
+	virtual void updateBtn(int WinW, int WinH);
+	void btnClic_down(int mouseX, int mouseY);
+	void btnClic_up(int mouseX, int mouseY);
+	void draw();
+	bool get_action();
+	void set_action(bool faux);
 };
 

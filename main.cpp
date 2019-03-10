@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
 	Game mGame("Test1", 500, 500, false);
-	mGame.drawMinefield();
+	//mGame.drawMinefield();
 
 	return 0;
 }

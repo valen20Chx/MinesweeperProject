@@ -1,35 +1,30 @@
 #include "ButtonText.h"
 
-ButtonText::ButtonText(std::string btnNom, int srcX, int srcY, int srcW, int srcH, int destX, int destY, int destW, int destH,
-	SDL_Renderer* pRenderer, int txtX, int txtY, short font_size, SDL_Color color, std::string fontPath, std::string  message)
+ButtonText::ButtonText(SDL_Rect src, SDL_Rect dest, SDL_Renderer* pRenderer, int x, int y, short font_size, SDL_Color color, std::string fontPath, std::string  message) :Button({ src.x, src.y, src.w, src.h }, { dest.x, dest.y, dest.w, dest.h }, false, pRenderer)
 {
-	Button(btnNom, srcX, srcY, srcW, srcH, destX, destY, destW, destH);
-	Text(pRenderer, txtX, txtY, font_size, color, fontPath, message);
 	//a voir si il faut tout mettre dans ce constructeur
-}
-
-void ButtonText::update() //Redimentionne le Texte
-{
-	//Text.# = Button.#(centré)
-	this->rect_dest.x = dest.x + (dest.w / 8); //positione a  1/8 eme du bord
-	this->rect_dest.y = dest.y + (dest.h / 6); //positione a  1/6 eme du bord
-	this->rect_dest.w = dest.w - (dest.w / 4); //fais un quart de moins que le boutton
-	this->rect_dest.h = dest.h - (dest.h / 3); //fais un tier de moins que le boutton
-}
-
-
-void ButtonText::drawBtnTxt()
-{
-	//image
-	SDL_RenderCopy(this->mRenderer, this->texture, &src, &dest);
-	//Text
-	this->draw();
+	this->isSquare = false;
+	this->mText = new Text(pRenderer, x, y, font_size, color, fontPath, message);
+	this->mText->update(message);
 	
 }
 
-ButtonText::ButtonText()
+void ButtonText::updateBtnTxt(int WinW, int WinH) //Redimentionne le Texte en fonction du boutton
 {
+	this->updateBtn(WinW, WinH);
+
+
+	mText->set_rect_dest(dest.x + (dest.w / 8), dest.y + (dest.h / 6)); 
+	mText->update_size(WinW, WinH); //ajuste la taille du text en fonction de la taille modifier de la fenete
 }
+
+
+void ButtonText::draw()
+{
+	SDL_RenderCopy(this->mRenderer, this->texture, &this->src, &this->dest);
+	mText->draw();
+}
+
 
 
 ButtonText::~ButtonText()
