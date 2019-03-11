@@ -8,9 +8,9 @@ private:
 	bool isFocused;
 	Text* mTextObj;
 	std::string textInput;
-	int maxChar;
+	unsigned int maxChar;
 public:
-	EditText(SDL_Renderer* pRenderer, int x, int y, int maxLength);
+	EditText(SDL_Renderer* pRenderer, int x, int y, unsigned int maxLength);
 	~EditText();
 	void input(SDL_Event* eventListener);
 	std::string getText();
