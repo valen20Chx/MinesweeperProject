@@ -16,4 +16,5 @@ public:
 	~Scene();
 	void windowSizeChanged(int width, int height);
 	virtual void draw() {};
+	SDL_Rect* get_rect(SDL_Rect* rect);
 };

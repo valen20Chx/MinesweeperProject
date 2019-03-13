@@ -1,16 +1,20 @@
 #pragma once
 
 #include "Scene.h"
-class SettingGame : public 
+class SettingGame : public Scene
 {
 private:
 	Text* mDifficutyTxt;
 	Text* mSizeTxt;
 
-	Object* mBarSelect;
+	SDL_Rect* m_srcBar;
+	SDL_Rect* mBarSelectDiff;
+	SDL_Rect* mBarSelectSize;
+	SDL_Color mBarColor;
+	SDL_Texture* textureBar;
 
 	ButtonText* mBtnTxtEasy;
-	ButtonText* mBtnTxtAverage*;
+	ButtonText* mBtnTxtAverage;
 	ButtonText* mBtnTxtHard;
 
 	ButtonText* mBtnTxtSmall;
@@ -18,16 +22,15 @@ private:
 	ButtonText* mBtnTxtLarge;
 
 	ButtonText* mBtnTxtPlay;
-public:
-	SettingGame(this->mRenderer, 0, 0, this->width, this->height)
-		~SettingGame();
-	void onClicEasy();
-	void onClicAverage();
-	void onClicHard();
-	void onClicSmall();
-	void onClicMedium();
-	void onClicLarge();
-	
+	MinefieldSettings mMineSettings;
 
+public:
+	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, void(*ToInGameFc)(), MinefieldSettings* mineSettings);
+	~SettingGame();
+	void input(SDL_Event* eventListener);
+	void set_paramRect(SDL_Rect* rect, int x, int y, int w, int h);
+	void draw();
 };
+
+
 

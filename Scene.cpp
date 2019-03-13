@@ -11,6 +11,12 @@ Scene::Scene(SDL_Renderer* pRenderer, int x, int y, int width, int height)
 
 Scene::~Scene() {};
 
+SDL_Rect* Scene::get_rect(SDL_Rect* rect)
+{
+	return rect;
+}
+
+
 void Scene::windowSizeChanged(int width, int height)
 {
 	this->width = width;
