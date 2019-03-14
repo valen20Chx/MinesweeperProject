@@ -43,7 +43,7 @@ void Button::input(SDL_Event* eventListener)
 			SDL_GetMouseState(&x, &y);
 
 			//si il relache le clic sur le boutton
-			if (x > this->dest.x && x <(this->dest.x + this->dest.w + 1) && y > this->dest.y && y < (this->dest.y + this->dest.h + 1))
+			if (x > this->dest.x && x <(this->dest.x + this->dest.w + 1) && y > this->dest.y && y < (this->dest.y + this->dest.h + 1) && isPressed == true)
 			{
 				this->isPressed = false;
 				std::cout << "Action du clic" << std::endl;
@@ -52,7 +52,11 @@ void Button::input(SDL_Event* eventListener)
 				if (this->func)
 					func();
 			}
-			else puts("Le clic est relacher or du boutton");
+			else if (isPressed == true)
+			{
+				puts("Le clic est relacher or du boutton");
+				isPressed = false;
+			}
 		}
 	}
 }

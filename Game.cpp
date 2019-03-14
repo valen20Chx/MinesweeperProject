@@ -2,7 +2,7 @@
 
 Game::Game(std::string title, int width, int height, bool fullScreen)
 {
-	this->gameState = GAME_STATE_IN_GAME;
+	this->gameState = GAME_STATE_SETTINGS;
 	this->fullScreen = fullScreen;
 	this->width = width;
 	this->height = height;
@@ -61,7 +61,7 @@ void Game::update()
 
 void Game::input()
 {
-	SDL_Event* eventListener;
+	SDL_Event* eventListener = new SDL_Event();
 	while (SDL_PollEvent(eventListener))
 	{
 		if (eventListener->type == SDL_QUIT)
@@ -113,10 +113,4 @@ void Game::switchToMainMenu()
 void Game::quitGame()
 {
 	this->isRunning = false;
-}
-
-void Game::switchToGameSettings()
-{
-	this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height);
-	this->gameState = GAME_STATE_SETTINGS;
 }

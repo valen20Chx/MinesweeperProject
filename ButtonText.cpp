@@ -14,7 +14,6 @@ void ButtonText::updateBtnTxtPos(int WinW, int WinH) //Redimentionne le Texte en
 	this->updateBtnPos(WinW, WinH);
 
 	mText->set_rect_dest(dest.x + (dest.w / 8), dest.y + (dest.h / 6)); 
-	mText->update_size(WinW, WinH); //ajuste la taille du text en fonction de la taille modifier de la fenete
 }
 
 void ButtonText::draw()

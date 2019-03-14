@@ -59,8 +59,3 @@ void Text::set_rect_dest(int x, int y) {
 	this->rect_dest.y = y;
 
 }
-
-SDL_Rect Text::getDestRect()
-{
-	return this->rect_dest;
-}

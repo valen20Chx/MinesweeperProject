@@ -503,3 +503,13 @@ unsigned MineField::getRuningTicks()
 		return (this->endTime - startTime);
 	}
 }
+
+void MineField::set_percentBomb(int prctBomb)
+{
+	this->percentBomb = prctBomb;
+}
+void MineField::set_size(int width, int height)
+{
+	this->width = width;
+	this->height = height;
+}
