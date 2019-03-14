@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "MainMenu.h"
 #include "StateInGame.h"
+#include "SettingGame.h"
 
 enum game_state
 {
@@ -34,7 +35,7 @@ public:
 	void render();
 	void switchToMainMenu();
 	void switchToGameSettings() {}; //TODO
-	void switchToInGame() {}; //TODO
+	void switchToInGame();
 	void switchToScoreBoard() {}; //TODO
 	void quitGame();
 };

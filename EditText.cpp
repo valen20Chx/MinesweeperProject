@@ -1,6 +1,11 @@
 #include "EditText.h"
 
+
 EditText::EditText()
+{}
+
+EditText::EditText(SDL_Renderer* pRenderer, int x, int y, unsigned int maxLength)
+
 {
 }
 

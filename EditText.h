@@ -9,9 +9,10 @@ private:
 	Text* mTextObj;
 	std::string textInput;
 	int xPos, yPos, width, height;
-	int maxChar;
+	unsigned int maxChar;
 public:
 	EditText();
+	EditText(SDL_Renderer* pRenderer, int x, int y, unsigned int maxLength);
 	~EditText();
 	void input(SDL_Event* eventListener);
 	std::string getText();
