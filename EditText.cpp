@@ -1,6 +1,6 @@
 #include "EditText.h"
 
-EditText::EditText(SDL_Renderer* pRenderer, int x, int y, int maxLength)
+EditText::EditText(SDL_Renderer* pRenderer, int x, int y, unsigned int maxLength)
 {
 	this->mTextObj = new Text(pRenderer, x, y, 24, { 255, 255, 255, 255 }, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "");
 	this->maxChar = maxLength;
