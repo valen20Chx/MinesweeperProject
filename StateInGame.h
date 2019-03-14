@@ -9,8 +9,8 @@ private:
 	Text* time;
 	MineField* gameGrid;
 	Button* btnFermer;
-	Button* btnTxtHome;
-	Button* btnTxtResart;
+	ButtonText* btnTxtHome;
+	ButtonText* btnTxtResart;
 	Button* btnParam;
 public:
 	StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, void(*quitFunc)(), void(*mainMenuFunc)());

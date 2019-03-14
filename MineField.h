@@ -66,4 +66,6 @@ public:
 	void update();
 	unsigned int getRuningTicks();
 	void input(SDL_Event* eventListener, int width, int height);
+	void set_percentBomb(int prctBomb);
+	void set_size(int width, int height);
 };
