@@ -14,7 +14,8 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	this->switchToMainMenuFunc = this->switchToMainMenu;
 	this->switchToScoreBoardFunc = this->switchToScoreBoard;
 	this->switchToGameSettingsFunc = this->switchToInGame;*/
-
+	
+	
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 	TTF_Init();
@@ -88,40 +89,40 @@ void Game::input()
 
 	//Handle
 
-	switch(this->scene->get_action())
+	switch(this->gameScene->get_action())
 	{
 		case ACTION_NONE:
 		break;
 
 		case ACTION_QUITTER:
-		this->scene->set_action(ACTION_NONE);
+		this->gameScene->set_action(ACTION_NONE);
 		this->isRunning = false;
 		break;
 
 		case ACTION_TO_INGAME:
-		this->scene->set_action(ACTION_NONE);
-		this->scene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSettings()); // TODO : test
+		this->gameScene->set_action(ACTION_NONE);
+		this->gameScene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSetting()); // TODO : test
 		break;
 
 		case ACTION_TO_SETTINGS_GAME:
-		this->scene->set_action(ACTION_NONE);
-		this->scene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height); // To Complete
+		this->gameScene->set_action(ACTION_NONE);
+		this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height); // To Complete
 		break;
 
 		case ACTION_TO_MENU:
-		this->scene->set_action(ACTION_NONE);
+		this->gameScene->set_action(ACTION_NONE);
 		this->gameScene = new MainMenu(this->mRenderer, 0, 0, this->width, this->height);
 		this->gameState = GAME_STATE_MAIN_MENU;
 		break;
 
 		case ACTION_TO_SCOREBOARD:
-		this->scene->set_action(ACTION_NONE);
-		this->scene = new ScoreBoardScene(this->mRenderer, 0, 0, this->width, this->height, {});
+		this->gameScene->set_action(ACTION_NONE);
+		this->gameScene = new ScoreBoardScene(this->mRenderer, 0, 0, this->width, this->height, {});
 		break;
 
-		case: ACTION_SET_HARD:
-		this->scene->set_action(ACTION_NONE);
-		this->scene->set
+		case ACTION_SET_HARD:
+		this->gameScene->set_action(ACTION_NONE);
+		this->gameScene->set;
 		break;
 	}
 }

@@ -6,6 +6,8 @@
 #include "MainMenu.h"
 #include "StateInGame.h"
 #include "SettingGame.h"
+#include "ScoreBoardScene.h"
+
 
 enum game_state
 {

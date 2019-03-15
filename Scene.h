@@ -34,5 +34,5 @@ public:
 	virtual void draw() {};
 	virtual void input(Uint32 eventType) {};
 	int get_action();
-	void set_action();
+	void set_action(int action);
 };
