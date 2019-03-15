@@ -25,11 +25,12 @@ private:
 	MinefieldSettings mMineSettings;
 
 public:
-	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, MinefieldSettings* mineSettings);
+	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~SettingGame();
 	void input(Uint32 eventType);
-	void set_paramRect(SDL_Rect* rect, int x, int y, int w, int h);
 	void draw();
+	MinefieldSettings get_mineSettings();
+	void set_mineSettings(MinefieldSettings mS); // TODO : TODO
 };
 
 

@@ -1,6 +1,6 @@
 #include "StateInGame.h"
 
-StateInGame::StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height):Scene(pRenderer,x, y, width, height)
+StateInGame::StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, MinefieldSettings mineFieldSettings):Scene(pRenderer,x, y, width, height)
 {
 	SDL_Rect btnParamRect = { 100, 2, 32, 32 };
 	this->btnParam = new Button(NULL, &btnParamRect,
@@ -56,4 +56,9 @@ void StateInGame::input(Uint32 eventType)
 	this->btnTxtHome->input(eventType);
 	this->btnTxtResart->input(eventType);
 	this->gameGrid->input(eventType, this->width, this->height);
+}
+
+MinefieldSettings StateInGame::get_gameResult()
+{
+	return {this->gameGrid->get_}; // TODO : remplir structure
 }

@@ -68,6 +68,8 @@ void Game::update()
 
 void Game::input()
 {
+	//Listen
+
 	SDL_Event* eventListener = new SDL_Event();
 	while (SDL_PollEvent(eventListener))
 	{
@@ -82,6 +84,45 @@ void Game::input()
 			this->gameScene->windowSizeChanged(this->width, this->height);
 			std::cout << "Change Size : (" << this->width << ";" << this->height << ")" << std::endl;
 		}
+	}
+
+	//Handle
+
+	switch(this->scene->get_action())
+	{
+		case ACTION_NONE:
+		break;
+
+		case ACTION_QUITTER:
+		this->scene->set_action(ACTION_NONE);
+		this->isRunning = false;
+		break;
+
+		case ACTION_TO_INGAME:
+		this->scene->set_action(ACTION_NONE);
+		this->scene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSettings()); // TODO : test
+		break;
+
+		case ACTION_TO_SETTINGS_GAME:
+		this->scene->set_action(ACTION_NONE);
+		this->scene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height); // To Complete
+		break;
+
+		case ACTION_TO_MENU:
+		this->scene->set_action(ACTION_NONE);
+		this->gameScene = new MainMenu(this->mRenderer, 0, 0, this->width, this->height);
+		this->gameState = GAME_STATE_MAIN_MENU;
+		break;
+
+		case ACTION_TO_SCOREBOARD:
+		this->scene->set_action(ACTION_NONE);
+		this->scene = new ScoreBoardScene(this->mRenderer, 0, 0, this->width, this->height, {});
+		break;
+
+		case: ACTION_SET_HARD:
+		this->scene->set_action(ACTION_NONE);
+		this->scene->set
+		break;
 	}
 }
 
@@ -110,15 +151,4 @@ void Game::render()
 
 	//Draw on window
 	SDL_RenderPresent(mRenderer);
-}
-
-void Game::switchToMainMenu(void)
-{
-	this->gameScene = new MainMenu(this->mRenderer, 0, 0, this->width, this->height);
-	this->gameState = GAME_STATE_MAIN_MENU;
-}
-
-void Game::quitGame(void)
-{
-	this->isRunning = false;
 }

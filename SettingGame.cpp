@@ -1,8 +1,6 @@
 #include "SettingGame.h"
 
-
-
-SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, MinefieldSettings* mineSettings):Scene(pRenderer, x, y, width, height)
+SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height):Scene(pRenderer, x, y, width, height)
 {
 	SDL_Rect btnEasyRect = { width / 5, width / 3, 70, 70 };
 	this->mBtnTxtEasy = new ButtonText(NULL, &btnEasyRect, this->mRenderer,
@@ -86,7 +84,7 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtAverage->set_action(false);
 		this->mBtnTxtHard->set_action(false);
 
-		this->set_paramRect(mBarSelectDiff, this->mBtnTxtEasy->get_dest().x, this->mBtnTxtEasy->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h);
+		*this->mBarSelectDiff = { this->mBtnTxtEasy->get_dest().x, this->mBtnTxtEasy->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h };
 	}
 	if (this->mBtnTxtAverage->get_action() == true)
 	{
@@ -95,7 +93,7 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtEasy->set_action(false);
 		this->mBtnTxtHard->set_action(false);
 
-		this->set_paramRect(mBarSelectDiff, this->mBtnTxtAverage->get_dest().x, this->mBtnTxtAverage->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h);
+		*this->mBarSelectDiff={ this->mBtnTxtAverage->get_dest().x, this->mBtnTxtAverage->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h};
 	}
 
 	if (this->mBtnTxtHard->get_action() == true)
@@ -105,7 +103,7 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtEasy->set_action(false);
 		this->mBtnTxtAverage->set_action(false);
 
-		this->set_paramRect(mBarSelectDiff, this->mBtnTxtHard->get_dest().x, this->mBtnTxtHard->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h);
+		*this->mBarSelectDiff = { this->mBtnTxtHard->get_dest().x, this->mBtnTxtHard->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h };
 	}
 
 	if (this->mBtnTxtSmall->get_action() == true)
@@ -116,7 +114,7 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtMedium->set_action(false);
 		this->mBtnTxtLarge->set_action(false);
 
-		this->set_paramRect(mBarSelectSize, this->mBtnTxtSmall->get_dest().x, this->mBtnTxtSmall->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h);
+		*this->mBarSelectSize = { this->mBtnTxtSmall->get_dest().x, this->mBtnTxtSmall->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h };
 
 	}
 
@@ -128,7 +126,7 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtSmall->set_action(false);
 		this->mBtnTxtLarge->set_action(false);
 
-		this->set_paramRect(mBarSelectSize, this->mBtnTxtMedium->get_dest().x, this->mBtnTxtMedium->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h);
+		*this->mBarSelectSize = { this->mBtnTxtMedium->get_dest().x, this->mBtnTxtMedium->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h};
 	}
 
 	if (this->mBtnTxtLarge->get_action() == true)
@@ -139,20 +137,48 @@ void SettingGame::input(Uint32 eventType) {
 		this->mBtnTxtSmall->set_action(false);
 		this->mBtnTxtMedium->set_action(false);
 
-		this->set_paramRect(mBarSelectSize, this->mBtnTxtLarge->get_dest().x, this->mBtnTxtLarge->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h);
+		*this->mBarSelectSize = { this->mBtnTxtLarge->get_dest().x, this->mBtnTxtLarge->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h};
 	}
 }
 
-void SettingGame::set_paramRect(SDL_Rect* rect, int x, int y, int w, int h)
-{
-	rect->x = x;
-	rect->y = y;
-	rect->w = w;
-	rect->h = h;
-}
+
 
 SettingGame::~SettingGame()
 {
 }
+
+void SettingGame::input(Uint32 eventType)
+{
+	if (mBtnTxtEasy->get_action())
+	{
+		this->action =ACTION_SET_EASY;
+	}
+	else if (mBtnTxtAverage->get_action())
+	{
+		this->action = ACTION_SET_AVG;
+	}
+	else if (mBtnTxtHard->get_action)
+	{
+		this->action = ACTION_SET_HARD;
+	}
+	else if (mBtnTxtSmall->get_action())
+	{
+		this->action = ACTION_SET_SMALL;
+	}
+	else if (mBtnTxtMedium->get_action())
+	{
+		this->action = ACTION_SET_MED;
+	}
+	else if (mBtnTxtLarge->get_action())
+	{
+		this->action = ACTION_SET_LARGE;
+	}
+}
+
+MinefieldSettings SettingGame::get_mineSettings()
+{
+	return this->mMineSettings;
+}
+
 
 

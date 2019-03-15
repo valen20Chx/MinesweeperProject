@@ -26,11 +26,13 @@ class Scene
 protected:
 	SDL_Renderer* mRenderer;
 	int x, y, width, height;
+	int action;
 public:
 	Scene(SDL_Renderer* mRenderer, int x, int y, int width, int height);
 	~Scene();
 	virtual void windowSizeChanged(int width, int height) {};
 	virtual void draw() {};
 	virtual void input(Uint32 eventType) {};
-	SDL_Rect* get_rect(SDL_Rect* rect);
+	int get_action();
+	void set_action();
 };

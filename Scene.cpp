@@ -7,11 +7,17 @@ Scene::Scene(SDL_Renderer* pRenderer, int x, int y, int width, int height)
 	this->y = y;
 	this->width = width;
 	this->height = height;
+	this->action = ACTION_NONE;
 }
 
 Scene::~Scene() {};
 
-SDL_Rect* Scene::get_rect(SDL_Rect* rect)
+int Scene::get_action()
 {
-	return rect;
+	return this->action;
+}
+
+void Scene::set_action(int action)
+{
+	this->action = action;
 }

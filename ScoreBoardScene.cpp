@@ -43,6 +43,15 @@ void ScoreBoardScene::input(Uint32 eventType)
 {
 	this->btnHome->input(eventType);
 	this->btnQuit->input(eventType);
+
+	if(this->btnHome->get_action())
+	{
+		this->action = ACTION_TO_MENU; // to mainmenu
+	}
+	if(this->btnQuit->get_action())
+	{
+		this->action = ACTION_QUITTER; // quitter le jeu
+	}
 }
 
 void ScoreBoardScene::windowSizeChanged(int width, int height)
