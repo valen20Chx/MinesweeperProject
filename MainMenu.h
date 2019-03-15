@@ -11,9 +11,10 @@ protected:
 	Button* mBtnFermer;
 public:
 	MainMenu(SDL_Renderer * pRenderer, int x, int y, int width, int height);
+	void windowSizeChanged(int width, int height);
 	~MainMenu();
-	void update(int width, int height);
 	void draw();
+	void input(Uint32 eventType);
 	void goSolo() {};
 	void goMulti() {};
 	void quitter() {};

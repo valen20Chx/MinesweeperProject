@@ -15,10 +15,3 @@ SDL_Rect* Scene::get_rect(SDL_Rect* rect)
 {
 	return rect;
 }
-
-
-void Scene::windowSizeChanged(int width, int height)
-{
-	this->width = width;
-	this->height = height;
-}

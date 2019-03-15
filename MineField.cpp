@@ -11,7 +11,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 
 	this->grid.resize(width);
 
-	for (int i = 0; i < this->grid.size(); i++)
+	for (int i = 0; i < (int)this->grid.size(); i++)
 	{
 		this->grid[i].resize(height);
 	}
@@ -107,7 +107,7 @@ MineField::MineField(MinefieldSettings minefieldSettings)
 
 	this->grid.resize(this->width);
 
-	for (int i = 0; i < this->grid.size(); i++)
+	for (int i = 0; i < (int)this->grid.size(); i++)
 	{
 		this->grid[i].resize(this->height);
 	}
@@ -291,19 +291,19 @@ void MineField::printStats()
 	std::cout << "Percentage : " << this->percentBomb << std::endl;
 }
 
-void MineField::input(SDL_Event* eventListener, int width, int height)
+void MineField::input(Uint32 eventType, int width, int height)
 {
-	if (eventListener->type == SDL_MOUSEBUTTONDOWN)
+	if (eventType == SDL_MOUSEBUTTONDOWN)
 	{
 		int mouseXpos, mouseYpos;
 		SDL_GetMouseState(&mouseXpos, &mouseYpos);
 		if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
 		{
-			if (eventListener->button.button == SDL_BUTTON_LEFT)
+			if (SDL_BUTTON(SDL_BUTTON_LEFT))
 			{
 				this->play(PLAY_DIG, mouseXpos, mouseYpos, width, height);
 			}
-			if (eventListener->button.button == SDL_BUTTON_RIGHT)
+			if (SDL_BUTTON(SDL_BUTTON_RIGHT))
 			{
 				this->play(PLAY_FLAG, mouseXpos, mouseYpos, width, height);
 			}

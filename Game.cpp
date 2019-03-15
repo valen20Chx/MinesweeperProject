@@ -8,6 +8,13 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	this->height = height;
 	this->isRunning = true;
 
+	//Function Pointers Assignement
+	/*this->quitFunc = this->quitGame;
+	this->switchToGameSettingsFunc = this->switchToGameSettings;
+	this->switchToMainMenuFunc = this->switchToMainMenu;
+	this->switchToScoreBoardFunc = this->switchToScoreBoard;
+	this->switchToGameSettingsFunc = this->switchToInGame;*/
+
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
 	TTF_Init();
@@ -64,6 +71,7 @@ void Game::input()
 	SDL_Event* eventListener = new SDL_Event();
 	while (SDL_PollEvent(eventListener))
 	{
+		this->gameScene->input(eventListener->type);
 		if (eventListener->type == SDL_QUIT)
 		{
 			this->isRunning = false;
@@ -104,13 +112,13 @@ void Game::render()
 	SDL_RenderPresent(mRenderer);
 }
 
-void Game::switchToMainMenu()
+void Game::switchToMainMenu(void)
 {
 	this->gameScene = new MainMenu(this->mRenderer, 0, 0, this->width, this->height);
 	this->gameState = GAME_STATE_MAIN_MENU;
 }
 
-void Game::quitGame()
+void Game::quitGame(void)
 {
 	this->isRunning = false;
 }

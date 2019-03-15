@@ -11,7 +11,10 @@ Text::Text(SDL_Renderer* pRenderer, int x, int y, short font_size, SDL_Color col
 	this->color = color;
 
 	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(this->mFont, this->text.c_str(), this->color);
-	if (!surfaceMessage) std::cout << "Surface Error" << std::endl;
+	if (!surfaceMessage)
+	{
+		std::cout << "Surface Error" << std::endl;
+	}
 	else
 	{
 		this->rect_dest.x = x;
@@ -58,4 +61,9 @@ void Text::set_rect_dest(int x, int y) {
 	this->rect_dest.x = x;
 	this->rect_dest.y = y;
 
+}
+
+SDL_Rect Text::get_rect_dest()
+{
+	return this->rect_dest;
 }

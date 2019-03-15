@@ -21,10 +21,10 @@ private:
 	int time;
 	int nbBombes;
 public:
-	ScoreBoardScene(SDL_Renderer* pRenderer, int x, int y, int width, int height, void(*quitFunc)(), void(*homeFunc)(), Game_Result game_Result);
+	ScoreBoardScene(SDL_Renderer* pRenderer, int x, int y, int width, int height, Game_Result game_Result);
 	~ScoreBoardScene();
 	void draw() {};
-	void input(SDL_Event* eventListener);
-	void updateWindowSize(int width, int height);
+	void input(Uint32 eventType);
+	void windowSizeChanged(int width, int height);
 };
 

@@ -25,7 +25,7 @@ typedef struct {
 	int width;
 	int height;
 	int percentBomb;
-	unsigned int seed;
+	int seed;
 } MinefieldSettings;
 
 class MineField
@@ -65,7 +65,7 @@ public:
 	void draw(SDL_Renderer* renderer);
 	void update();
 	unsigned int getRuningTicks();
-	void input(SDL_Event* eventListener, int width, int height);
+	void input(Uint32 eventType, int width, int height);
 	void set_percentBomb(int prctBomb);
 	void set_size(int width, int height);
 };

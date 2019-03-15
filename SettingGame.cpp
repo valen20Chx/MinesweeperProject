@@ -2,33 +2,41 @@
 
 
 
-SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, void(*ToInGameFc)(),MinefieldSettings* mineSettings):Scene(pRenderer, x, y, width, height)
+SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, MinefieldSettings* mineSettings):Scene(pRenderer, x, y, width, height)
 {
-	//Charger les boutton
-	this->mBtnTxtEasy = new ButtonText({ 0, 0, 64, 16 }, { width/5, width/3, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+	SDL_Rect btnEasyRect = { width / 5, width / 3, 70, 70 };
+	this->mBtnTxtEasy = new ButtonText(NULL, &btnEasyRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "EASY");
-	this->mBtnTxtAverage = new ButtonText({ 0, 0, 64, 16 }, { width / 5*2, width / 3, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+
+	SDL_Rect btnAvgRect = { width / 5 * 2, width / 3, 70, 70 };
+	this->mBtnTxtAverage = new ButtonText(NULL, &btnAvgRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "AVERAGE");
-	this->mBtnTxtHard = new ButtonText({ 0, 0, 64, 16 }, { width / 5*4, width / 3, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+
+	SDL_Rect btnHardRect = { width / 5 * 4, width / 3, 70, 70 };
+	this->mBtnTxtHard = new ButtonText(NULL, &btnHardRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "HARD");
 
-
-	this->mBtnTxtSmall = new ButtonText({ 0, 0, 64, 16 }, { width / 5, width / 2, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+	SDL_Rect btnSmallRect = { width / 5, width / 2, 70, 70 };
+	this->mBtnTxtSmall = new ButtonText(NULL, &btnSmallRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "SMALL");
-	this->mBtnTxtMedium = new ButtonText({ 0, 0, 64, 16 }, { width / 5*2, width / 2, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+
+	SDL_Rect btnMedRect = { width / 5 * 2, width / 2, 70, 70 };
+	this->mBtnTxtMedium = new ButtonText(NULL, &btnMedRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "MEDIUM");
-	this->mBtnTxtLarge = new ButtonText({ 0, 0, 64, 16 }, { width / 5*4, width / 2, 70, 70 }, this->mRenderer,
-		10, 10, nullptr, "Ressources/Image/Default/Button_Default_Empty_Rest.png",
+
+	SDL_Rect btnLargeRect = { width / 5 * 4, width / 2, 70, 70 };
+	this->mBtnTxtLarge = new ButtonText(NULL, &btnLargeRect, this->mRenderer,
+		"Ressources/Image/Default/Button_Default_Empty_Rest.png",
 		"Ressources/Image/Default/Button_Default_Empty_Pressed.png", 18, { 100,100,255, 255 },
 		"Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "LARGE");
 
@@ -63,13 +71,13 @@ void SettingGame::draw()
 
 }
 
-void SettingGame::input(SDL_Event* eventListener) {
-	this->mBtnTxtEasy->input(eventListener);
-	this->mBtnTxtAverage->input(eventListener);
-	this->mBtnTxtHard->input(eventListener);
-	this->mBtnTxtSmall->input(eventListener);
-	this->mBtnTxtMedium->input(eventListener);
-	this->mBtnTxtLarge->input(eventListener);
+void SettingGame::input(Uint32 eventType) {
+	this->mBtnTxtEasy->input(eventType);
+	this->mBtnTxtAverage->input(eventType);
+	this->mBtnTxtHard->input(eventType);
+	this->mBtnTxtSmall->input(eventType);
+	this->mBtnTxtMedium->input(eventType);
+	this->mBtnTxtLarge->input(eventType);
 
 	if (this->mBtnTxtEasy->get_action() == true)
 	{

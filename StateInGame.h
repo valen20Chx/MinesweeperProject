@@ -13,9 +13,9 @@ private:
 	ButtonText* btnTxtResart;
 	Button* btnParam;
 public:
-	StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height, void(*quitFunc)(), void(*mainMenuFunc)());
+	StateInGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~StateInGame();
 	void draw();
-	void updateWindowSize(int W, int H);
-	void input(SDL_Event* eventHandler);
+	void windowSizeChanged(int width, int height);
+	void input(Uint32 eventType);
 };
