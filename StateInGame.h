@@ -18,5 +18,5 @@ public:
 	void draw();
 	void windowSizeChanged(int width, int height);
 	void input(Uint32 eventType);
-	MinefieldSettings get_gameResult();
+	void set_gameResult();
 };

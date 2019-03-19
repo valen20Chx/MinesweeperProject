@@ -6,21 +6,17 @@ MainMenu::MainMenu(SDL_Renderer * pRenderer, int x, int y, int width, int height
 	this->mWallpaper = new WallPaper(128, 128, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
 
 	SDL_Rect* btnSoloRect = new SDL_Rect();
-	*btnSoloRect = { 200, 300, 32, 70 };
-	this->mBtnTxtSolo = new ButtonText(NULL, btnSoloRect, this->mRenderer,
-		"Ressources/Image/Default/Button_Default_Empty_Rest.png", "Ressources/Image/Default/Button_Default_Empty_Pressed.png",
-		32, { 100, 100, 255, 255 }, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "Solo");
+	*btnSoloRect = { width/2 - 50, height/4, 100, 50 };
+	this->mBtnTxtSolo = new ButtonText(NULL, btnSoloRect, this->mRenderer,	BUTTON_REST, BUTTON_PRESSED,32, { 100, 100, 255, 255 }, FONT_BOLD, "Solo");
 
 	SDL_Rect* btnMultiRect = new SDL_Rect();
-	*btnMultiRect = { 0, 300, 32, 70 };
+	*btnMultiRect = { width/2 - 60, height/5*3, 120, 50 };
 	this->mBtnTxtMulti = new ButtonText(NULL, btnMultiRect, this->mRenderer,
-		"Ressources/Image/Default/Button_Default_Empty_Rest.png", "Ressources/Image/Default/Button_Default_Empty_Pressed.png", 
-		32, { 100,100,255, 255 }, "Ressources/Font/Open_Sans/OpenSans-Bold.ttf", "Multi");
+		BUTTON_REST, BUTTON_PRESSED,32, { 100,100,255, 255 }, FONT_BOLD, "Multi");
 
 	SDL_Rect* btnFermerRect = new SDL_Rect();
-	*btnFermerRect = { this->width - 96, 32, 32, 32 };
-	this->mBtnFermer = new Button(NULL, btnFermerRect, "Ressources/Image/Default/Button_Quit_Rest.png",
-		"Ressources/Image/Default/Button_Quit_Pressed.png", this->mRenderer);
+	*btnFermerRect = { this->width - 34, 2, 32, 32 };
+	this->mBtnFermer = new Button(NULL, btnFermerRect, BUTTON_QUIT_REST, BUTTON_QUIT_PRESSED, this->mRenderer);
 }
 
 void MainMenu::windowSizeChanged(int width, int height)
@@ -45,6 +41,19 @@ void MainMenu::input(Uint32 eventType)
 	this->mBtnFermer->input(eventType);
 	this->mBtnTxtMulti->input(eventType);
 	this->mBtnTxtSolo->input(eventType);
+
+	if (this->mBtnFermer->get_action())
+	{
+		this->action = ACTION_QUITTER;
+	}
+	if (this->mBtnTxtSolo->get_action())
+	{
+		this->action = ACTION_TO_SETTINGS_GAME;
+	}
+	if (this->mBtnTxtMulti->get_action())
+	{
+		//this->action = ACTION_TO
+	}
 }
 
 MainMenu::~MainMenu()

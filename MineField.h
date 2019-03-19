@@ -12,14 +12,22 @@
 #define PLAY_FLAG 1
 
 #define GAME_MARGIN_LEFT 20
-#define GAME_MARGIN_TOP 40
-#define GAME_MARGIN_BOTTOM 20
+#define GAME_MARGIN_TOP 60
+#define GAME_MARGIN_BOTTOM 10
 #define GAME_MARGIN_RIGHT 20
 
 #define MF_STATE_NONE 0
 #define MF_STATE_STARTED 1
 #define MF_STATE_WON 2
 #define MF_STATE_LOSS 3
+
+typedef struct
+{
+	int nbBomb;
+	int nbGoodFlag;
+	unsigned int time;
+	bool won;
+}GameResult;
 
 typedef struct {
 	int width;
@@ -35,7 +43,7 @@ private:
 	int percentBomb;
 	std::vector<std::vector<Square>> grid;
 	int nbBombs;
-	int nbBombDiscovered;
+	int nbGoodFlag;
 	unsigned int seed;
 	int state;
 	int nbFlags;
@@ -47,6 +55,8 @@ public:
 	MineField(int width, int height, int percentBomb, unsigned int seed);
 	MineField(MinefieldSettings minefieldSettings);
 	~MineField();
+	void set_nbGoodFlag();
+	int get_nbGoodFlag();
 	int get_width();
 	int get_height();
 	int get_percentBomb();
@@ -68,4 +78,7 @@ public:
 	void input(Uint32 eventType, int width, int height);
 	void set_percentBomb(int prctBomb);
 	void set_size(int width, int height);
+	int get_nbBomb();
+	bool get_isWon();
+	bool get_isFinished();
 };

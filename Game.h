@@ -40,6 +40,7 @@ public:
 	void update();
 	void input();
 	void render();
+	/////////////////////////////////////////////
 	void switchToMainMenu(void);
 	void switchToGameSettings(void) {}; //TODO
 	void switchToInGame(void);

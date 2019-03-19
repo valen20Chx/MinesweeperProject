@@ -86,8 +86,8 @@ void Button::input(Uint32 eventType)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		std::cout << " DOWN x : " << x << " | y : " << y << std::endl;
-		std::cout << " BTN  x : " << this->dest->x << " | y : " << this->dest->y << " | w : " << this->dest->w << " | h : " << this->dest->h << std::endl;
+		//std::cout << " DOWN x : " << x << " | y : " << y << std::endl;
+		//std::cout << " BTN  x : " << this->dest->x << " | y : " << this->dest->y << " | w : " << this->dest->w << " | h : " << this->dest->h << std::endl;
 		if (x > this->dest->x && x < (this->dest->w + this->dest->x) && y > this->dest->y && y < (this->dest->h + this->dest->y))
 		{
 			std::cout << "pressed" << std::endl;
@@ -98,8 +98,8 @@ void Button::input(Uint32 eventType)
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
-		std::cout << " UP   x : " << x << " | y : " << y << std::endl;
-		std::cout << " BTN  x : " << this->dest->x << " | y : " << this->dest->y << " | w : " << this->dest->w << " | h : " << this->dest->h << std::endl;
+		//std::cout << " UP   x : " << x << " | y : " << y << std::endl;
+		//std::cout << " BTN  x : " << this->dest->x << " | y : " << this->dest->y << " | w : " << this->dest->w << " | h : " << this->dest->h << std::endl;
 		if (x > this->dest->x && x < (this->dest->w + this->dest->x) && y > this->dest->y && y < (this->dest->h + this->dest->y))
 		{
 			if (this->isPressed)

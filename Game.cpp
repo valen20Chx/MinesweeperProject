@@ -2,7 +2,7 @@
 
 Game::Game(std::string title, int width, int height, bool fullScreen)
 {
-	this->gameState = GAME_STATE_SETTINGS;
+	this->gameState = GAME_STATE_MAIN_MENU;
 	this->fullScreen = fullScreen;
 	this->width = width;
 	this->height = height;
@@ -101,12 +101,15 @@ void Game::input()
 
 		case ACTION_TO_INGAME:
 		this->gameScene->set_action(ACTION_NONE);
-		this->gameScene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSetting()); // TODO : test
+		this->gameScene->set_seed();
+		std::cout << "creation scene In game";
+		this->gameScene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSettings()); // TODO : test
+		std::cout << "fin creation de scene IN GAME";
 		break;
 
 		case ACTION_TO_SETTINGS_GAME:
 		this->gameScene->set_action(ACTION_NONE);
-		this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height); // To Complete
+		this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height); 
 		break;
 
 		case ACTION_TO_MENU:
@@ -117,12 +120,37 @@ void Game::input()
 
 		case ACTION_TO_SCOREBOARD:
 		this->gameScene->set_action(ACTION_NONE);
-		this->gameScene = new ScoreBoardScene(this->mRenderer, 0, 0, this->width, this->height, {});
+		this->gameScene = new ScoreBoardScene(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_gameResult());
 		break;
 
 		case ACTION_SET_HARD:
 		this->gameScene->set_action(ACTION_NONE);
-		this->gameScene->set;
+		this->gameScene->set_hard();
+		break;
+
+		case ACTION_SET_AVG:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene->set_average();
+		break;
+
+		case ACTION_SET_EASY:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene->set_easy();
+		break;
+
+		case ACTION_SET_LARGE:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene->set_large();
+		break;
+
+		case ACTION_SET_MED:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene->set_medium();
+		break;
+
+		case ACTION_SET_SMALL:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene->set_small();
 		break;
 	}
 }
@@ -139,7 +167,6 @@ void Game::render()
 	SDL_RenderFillRect(this->mRenderer, &rect);
 	
 	//Draw Scene
-	
 	this->gameScene->draw();
 
 	//Update frameCount

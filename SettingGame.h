@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Scene.h"
+
+
 class SettingGame : public Scene
 {
 private:
@@ -22,15 +24,16 @@ private:
 	ButtonText* mBtnTxtLarge;
 
 	ButtonText* mBtnTxtPlay;
-	MinefieldSettings mMineSettings;
+
+	WallPaper* mWallpaper;
 
 public:
 	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~SettingGame();
 	void input(Uint32 eventType);
 	void draw();
-	MinefieldSettings get_mineSettings();
-	void set_mineSettings(MinefieldSettings mS); // TODO : TODO
+	void set_mineSettings(MinefieldSettings mS);
+	void windowSizeChanged(int width, int height);
 };
 
 

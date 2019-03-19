@@ -8,7 +8,7 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 	this->percentBomb = percentBomb;
 	this->seed = seed;
 	this->nbFlags = 0;
-
+	this->nbGoodFlag = 0;
 	this->grid.resize(width);
 
 	for (int i = 0; i < (int)this->grid.size(); i++)
@@ -29,8 +29,8 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 			int tempX, tempY;
 			tempX = rand() % width;
 			tempY = rand() % height;
-
-			if (!this->grid[tempX][tempY].get_isBomb())
+			//Si il n'y a pas de Bombe
+			if (!this->grid[tempX][tempY].get_isBomb()) 
 			{
 				SDL_Point tempPoint;
 				correctPlacement = true;
@@ -98,12 +98,20 @@ MineField::MineField(int width, int height, int percentBomb, unsigned int seed)
 
 MineField::MineField(MinefieldSettings minefieldSettings)
 {
+	/*std::cout << "Constructeur avec a partir de la STURCTURE"<<std::endl;
+	std::cout <<"heigth = "  << minefieldSettings.height << std::endl;
+	std::cout << "width = " << minefieldSettings.width << std::endl;
+	std::cout << "bomb = " << minefieldSettings.percentBomb << std::endl;
+	std::cout << "seed = " << minefieldSettings.seed << std::endl;*/
+
+
 	this->state = MF_STATE_NONE;
 	this->width = minefieldSettings.width;
 	this->height = minefieldSettings.height;
 	this->percentBomb = minefieldSettings.percentBomb;
 	this->seed = minefieldSettings.seed;
 	this->nbFlags = 0;
+	this->nbGoodFlag = 0;
 
 	this->grid.resize(this->width);
 
@@ -146,7 +154,7 @@ MineField::MineField(MinefieldSettings minefieldSettings)
 		for (int i = 0; i < this->width; i++)
 		{
 			if (!this->grid[i][j].get_isBomb())
-			{
+			{//COMPTE LE NOMBRE DE BOMBE AUTOUR
 				int nbB = 0;
 				if (i != 0)
 				{
@@ -293,20 +301,21 @@ void MineField::printStats()
 
 void MineField::input(Uint32 eventType, int width, int height)
 {
-	if (eventType == SDL_MOUSEBUTTONDOWN)
+	int mouseXpos, mouseYpos;
+	if (SDL_GetMouseState(&mouseXpos, &mouseYpos) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		int mouseXpos, mouseYpos;
-		SDL_GetMouseState(&mouseXpos, &mouseYpos);
-		if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
+		if (this->state != MF_STATE_LOSS & this->state != MF_STATE_WON)
 		{
-			if (SDL_BUTTON(SDL_BUTTON_LEFT))
-			{
-				this->play(PLAY_DIG, mouseXpos, mouseYpos, width, height);
-			}
-			if (SDL_BUTTON(SDL_BUTTON_RIGHT))
-			{
-				this->play(PLAY_FLAG, mouseXpos, mouseYpos, width, height);
-			}
+			std::cout << "btn GAUCHE" << std::endl;
+			this->play(PLAY_DIG, mouseXpos, mouseYpos, width, height);
+		}
+	}
+	if (SDL_GetMouseState(&mouseXpos, &mouseYpos) & SDL_BUTTON(SDL_BUTTON_RIGHT))
+	{
+		if (this->state != MF_STATE_LOSS & this->state != MF_STATE_WON)
+		{
+			std::cout << "btnDROIT" << std::endl;
+			this->play(PLAY_FLAG, mouseXpos, mouseYpos, width, height);
 		}
 	}
 }
@@ -469,6 +478,12 @@ void MineField::draw(SDL_Renderer* renderer)
 			SDL_Rect dest = this->grid[i][j].get_dest();
 			SDL_Rect src = this->grid[i][j].get_src();
 
+			/*std::cout << "i = " << i << "j = " << j << std::endl;
+			std::cout <<"src x "<< src.x <<" src y " << src.y <<" src w " << src.w <<" src h" << src.h << std::endl;
+			std::cout <<"dest x "<< dest.x <<"dest y" << dest.y <<"dest w"<< dest.w <<"dest h "<< dest.h << std::endl;
+			std::cout << "texture " << this->grid[i][j].get_texture() << std::endl;*/
+
+
 			SDL_RenderCopyEx(renderer, this->grid[i][j].get_texture(), &src, &dest, 0, NULL, SDL_FLIP_NONE);
 		}
 	}
@@ -512,4 +527,34 @@ void MineField::set_size(int width, int height)
 {
 	this->width = width;
 	this->height = height;
+}
+
+void MineField::set_nbGoodFlag()
+{
+	for (int i = 0; i < this->nbBombs; i++)
+	{
+		if (this->grid[bombsPos[i].x][bombsPos[i].y].get_isFlagged())
+			this->nbGoodFlag += 1;
+	}
+}
+int MineField::get_nbGoodFlag()
+{
+	return this->nbGoodFlag;
+}
+
+int MineField::get_nbBomb()
+{
+	return this->bombsPos.size();
+}
+
+bool MineField::get_isWon()
+{
+	if (this->state == MF_STATE_LOSS) return false;
+	else return true;
+}
+
+bool MineField::get_isFinished()
+{
+	if (this->state == MF_STATE_LOSS || this->state == MF_STATE_WON) return true;
+	else return false;
 }
