@@ -36,11 +36,11 @@ void MainMenu::draw()
     this->mBtnTxtMulti->draw();
 }
 
-void MainMenu::input(Uint32 eventType)
+void MainMenu::input(SDL_Event eventListener)
 {
-	this->mBtnFermer->input(eventType);
-	this->mBtnTxtMulti->input(eventType);
-	this->mBtnTxtSolo->input(eventType);
+	this->mBtnFermer->input(eventListener);
+	this->mBtnTxtMulti->input(eventListener);
+	this->mBtnTxtSolo->input(eventListener);
 
 	if (this->mBtnFermer->get_action())
 	{

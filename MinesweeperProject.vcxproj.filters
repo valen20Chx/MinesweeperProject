@@ -69,6 +69,15 @@
     <ClInclude Include="ScoreBoardScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SceneConnect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Reseau.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object.cpp">
@@ -117,6 +126,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ScoreBoardScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneConnect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reseau.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -14,7 +14,7 @@ public:
 	void windowSizeChanged(int width, int height);
 	~MainMenu();
 	void draw();
-	void input(Uint32 eventType);
+	void input(SDL_Event eventListener);
 	void goSolo() {};
 	void goMulti() {};
 	void quitter() {};

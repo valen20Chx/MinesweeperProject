@@ -59,7 +59,6 @@ void Scene::set_large()
 void Scene::set_seed()
 {
 	this->mMineSettings.seed = (int)(rand() / (double)RAND_MAX * (157 - 1));
-	//this->mMineSettings.seed = 3;
 }
 
 

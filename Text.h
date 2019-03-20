@@ -23,7 +23,6 @@ public:
 	~Text();
 	void update(std::string message);
 	void draw();
-	void update_size(int diffWinW, int diffWinH);
 	void set_rect_dest(int x, int y);
 	SDL_Rect get_rect_dest();
 };

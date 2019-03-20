@@ -17,6 +17,6 @@ public:
 	~StateInGame();
 	void draw();
 	void windowSizeChanged(int width, int height);
-	void input(Uint32 eventType);
+	void input(SDL_Event eventListener);
 	void set_gameResult();
 };

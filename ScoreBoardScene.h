@@ -18,13 +18,11 @@ private:
 	Button* btnQuit;
 	Button* btnTxtHome;
 	std::vector<Text*> txtListStats;
-	int time;
-	int nbBombes;
 public:
 	ScoreBoardScene(SDL_Renderer* pRenderer, int x, int y, int width, int height, GameResult game_Result);
 	~ScoreBoardScene();
 	void draw();
-	void input(Uint32 eventType);
+	void input(SDL_Event eventListener);
 	void windowSizeChanged(int width, int height);
 };
 

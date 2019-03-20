@@ -41,12 +41,12 @@ void StateInGame::draw()
 	this->btnFermer->draw();
 }
 
-void StateInGame::input(Uint32 eventType)
+void StateInGame::input(SDL_Event eventListener)
 {
-	this->btnFermer->input(eventType);
-	this->btnTxtHome->input(eventType);
+	this->btnFermer->input(eventListener);
+	this->btnTxtHome->input(eventListener);
 	//this->btnTxtResart->input(eventType);
-	this->gameGrid->input(eventType, this->width, this->height);
+	this->gameGrid->input(eventListener, this->width, this->height);
 
 	if (this->btnFermer->get_action())
 	{
@@ -58,11 +58,11 @@ void StateInGame::input(Uint32 eventType)
 	}
 	if (this->gameGrid->get_isFinished() == true)
 	{
-		set_gameResult();
+		this->set_gameResult();
 		std::cout << "bomb " << this->game_Result.nbBomb << std::endl;
 		std::cout << "flag " << this->game_Result.nbGoodFlag << std::endl;
 		std::cout << "time " << this->game_Result.time << std::endl;
-		std::cout << "win or loos " << this->game_Result.won << std::endl;
+		std::cout << "win or loss " << this->game_Result.won << std::endl;
 
 		
 		std::cout << "FIN de partie" << std::endl;

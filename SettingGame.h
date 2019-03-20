@@ -30,7 +30,7 @@ private:
 public:
 	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~SettingGame();
-	void input(Uint32 eventType);
+	void input(SDL_Event eventListener);
 	void draw();
 	void set_mineSettings(MinefieldSettings mS);
 	void windowSizeChanged(int width, int height);

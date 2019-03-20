@@ -299,12 +299,12 @@ void MineField::printStats()
 	std::cout << "Percentage : " << this->percentBomb << std::endl;
 }
 
-void MineField::input(Uint32 eventType, int width, int height)
+void MineField::input(SDL_Event eventListener, int width, int height)
 {
 	int mouseXpos, mouseYpos;
 	if (SDL_GetMouseState(&mouseXpos, &mouseYpos) & SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
-		if (this->state != MF_STATE_LOSS & this->state != MF_STATE_WON)
+		if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
 		{
 			std::cout << "btn GAUCHE" << std::endl;
 			this->play(PLAY_DIG, mouseXpos, mouseYpos, width, height);
@@ -312,12 +312,13 @@ void MineField::input(Uint32 eventType, int width, int height)
 	}
 	if (SDL_GetMouseState(&mouseXpos, &mouseYpos) & SDL_BUTTON(SDL_BUTTON_RIGHT))
 	{
-		if (this->state != MF_STATE_LOSS & this->state != MF_STATE_WON)
+		if (this->state != MF_STATE_LOSS && this->state != MF_STATE_WON)
 		{
 			std::cout << "btnDROIT" << std::endl;
 			this->play(PLAY_FLAG, mouseXpos, mouseYpos, width, height);
 		}
 	}
+	this->update();
 }
 
 void MineField::play(int playType, int x, int y, int screenWidth, int screenHeight)
@@ -350,10 +351,18 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 						if (this->grid[i][j].get_isHidden())
 						{
 							if (this->grid[i][j].get_isFlagged())
+							{
 								this->nbFlags--;
-							else this->nbFlags++;
-
-							this->grid[i][j].set_isFlagged(!this->grid[i][j].get_isFlagged());
+								this->grid[i][j].set_isFlagged(false);
+							}
+							else
+							{
+								if (this->nbFlags < this->nbBombs)
+								{
+									this->nbFlags++;
+									this->grid[i][j].set_isFlagged(true);
+								}
+							}
 						}
 						break;
 					default:
@@ -362,21 +371,6 @@ void MineField::play(int playType, int x, int y, int screenWidth, int screenHeig
 				}
 			}
 		}
-
-		/* CONTINUITY OF PREVIOUS VERSION CLICK CONTROL
-		switch (playType)
-		{
-		case PLAY_DIG:
-			this->play_reveal(i, j);
-			break;
-		case PLAY_FLAG:
-			if(this->grid[i][j].get_isHidden())
-				this->grid[xGrid][yGrid].set_isFlagged(!this->grid[xGrid][yGrid].get_isFlagged());
-			break;
-		default:
-			break;
-		}
-		*/
 	}
 }
 
@@ -494,7 +488,7 @@ void MineField::update()
 	bool allBombsFlag = true;
 	for (int i = 0; i < this->nbBombs; i++)
 	{
-		if (!this->grid[bombsPos[i].x][bombsPos[i].y].get_isFlagged())
+		if (!(this->grid[bombsPos[i].x][bombsPos[i].y].get_isFlagged()))
 			allBombsFlag = false;
 	}
 	if (allBombsFlag)
@@ -550,7 +544,10 @@ int MineField::get_nbBomb()
 bool MineField::get_isWon()
 {
 	if (this->state == MF_STATE_LOSS) return false;
-	else return true;
+	else
+	{
+		return true;
+	}
 }
 
 bool MineField::get_isFinished()

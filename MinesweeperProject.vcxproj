@@ -22,32 +22,32 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{AFAD2D6E-91A1-4CAF-934A-A8E588B44054}</ProjectGuid>
     <RootNamespace>MinesweeperProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -80,7 +80,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\MinesweeperProject\MinesweeperProject\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_net.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -133,11 +133,14 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MineField.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="Reseau.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneConnect.h" />
     <ClInclude Include="ScoreBoardScene.h" />
     <ClInclude Include="SettingGame.h" />
     <ClInclude Include="Square.h" />
     <ClInclude Include="StateInGame.h" />
+    <ClInclude Include="String.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="WallPaper.h" />
   </ItemGroup>
@@ -151,7 +154,9 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MineField.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Reseau.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneConnect.cpp" />
     <ClCompile Include="ScoreBoardScene.cpp" />
     <ClCompile Include="SettingGame.cpp" />
     <ClCompile Include="Square.cpp" />

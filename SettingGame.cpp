@@ -1,42 +1,42 @@
 #include "SettingGame.h"
 
-SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height):Scene(pRenderer, x, y, width, height)
+SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height) : Scene(pRenderer, x, y, width, height)
 {
-
 	//Charger les Text
-	this->mDifficutyTxt = new Text(this->mRenderer, this->width / 2 - 65 /*(this->mDifficutyTxt->get_rect_dest().w /2)*/, this->height / 5,
-		24, { 100,100,100,255 }, FONT_BOLD, "DIFFICULTY");
-	this->mSizeTxt = new Text(this->mRenderer, this->width / 2 - 40 /*(this->mSizeTxt->get_rect_dest().w / 2)*/, this->height / 2,
-		24, { 100,100,100,255 }, FONT_BOLD, "SIZE");
+	this->mDifficutyTxt = new Text(this->mRenderer,width/2 - 50, this->height / 5, 24, GOLD, FONT_BOLD, "DIFFICULTY");
+	this->mSizeTxt = new Text(this->mRenderer, width/ 2 - 35, this->height / 20*11, 24, GOLD, FONT_BOLD, "SIZE");
+		
+	//Charger les coordonées des boutton
+	int margeBtnDiff = (width - (this->mbtnTxtEasy->get_dest().w + this->mBtnTxtAverage->get_dest().w + this->mBtnTxtHard->get_dest().w)) / 3
+	int margeBtnSize = (width - (this->mbtnTxtSmall->get_dest().w + this->mBtnTxtMedium->get_dest().w + this->mBtnTxtLarge->get_dest().w)) / 3
 
-	//Charger les bouttons
+
 	SDL_Rect* btnEasyRect = new SDL_Rect();
-	*btnEasyRect = { width / 5, height / 3, 70, 32 };
-	this->mBtnTxtEasy = new ButtonText(NULL, btnEasyRect, this->mRenderer,
-		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "EASY");
-
+	*btnEasyRect = { width / 5, this->mDifficutyTxt->get_rect_dest().y + 30, 70, 32 };
 	SDL_Rect* btnAvgRect = new SDL_Rect();
-	*btnAvgRect = { width / 20 * 9, height / 3, 70, 32 };
-	this->mBtnTxtAverage = new ButtonText(NULL, btnAvgRect, this->mRenderer,
-		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "AVERAGE");
-
+	*btnAvgRect = { width / 20 * 9, this->mDifficutyTxt->get_rect_dest().y + 30, 70, 32 };
 	SDL_Rect* btnHardRect = new SDL_Rect();
-	*btnHardRect = { width / 10 * 7, height / 3, 70, 32 };
-	this->mBtnTxtHard = new ButtonText(NULL, btnHardRect, this->mRenderer,
-		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "HARD");
+	*btnHardRect = { width / 10 * 7, this->mDifficutyTxt->get_rect_dest().y + 30, 70, 32 };
 
 	SDL_Rect* btnSmallRect = new SDL_Rect();
-	*btnSmallRect = { width / 5, height / 2, 70, 32 };
+	*btnSmallRect = { width / 5, this->mSizeTxt->get_rect_dest().y + 30, 70, 32 };
+	SDL_Rect* btnMedRect = new SDL_Rect();
+	*btnMedRect = { width / 20 * 9,this->mSizeTxt->get_rect_dest().y + 30, 70, 32 };
+	SDL_Rect* btnLargeRect = new SDL_Rect();
+	*btnLargeRect = { width / 10 * 7, this->mSizeTxt->get_rect_dest().y + 30, 70, 32 };
+	
+	//Charger les bouttons
+	this->mBtnTxtEasy = new ButtonText(NULL, btnEasyRect, this->mRenderer,
+		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "EASY");
+	this->mBtnTxtAverage = new ButtonText(NULL, btnAvgRect, this->mRenderer,
+		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "AVERAGE");	
+	this->mBtnTxtHard = new ButtonText(NULL, btnHardRect, this->mRenderer,
+		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "HARD");
+	
 	this->mBtnTxtSmall = new ButtonText(NULL, btnSmallRect, this->mRenderer,
 		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "SMALL");
-
-	SDL_Rect* btnMedRect = new SDL_Rect();
-	*btnMedRect = { width / 20 * 9, height / 2, 70, 32 };
 	this->mBtnTxtMedium = new ButtonText(NULL, btnMedRect, this->mRenderer,
 		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 }, FONT_BOLD, "MEDIUM");
-
-	SDL_Rect* btnLargeRect = new SDL_Rect();
-	*btnLargeRect = { width / 10 * 7, height / 2, 70, 32 };
 	this->mBtnTxtLarge = new ButtonText(NULL, btnLargeRect, this->mRenderer,
 		BUTTON_REST, BUTTON_PRESSED, 18, { 100,100,255, 255 },FONT_BOLD, "LARGE");
 
@@ -94,15 +94,15 @@ SettingGame::~SettingGame()
 {
 }
 
-void SettingGame::input(Uint32 eventType)
+void SettingGame::input(SDL_Event eventListener)
 {
-	this->mBtnTxtEasy->input(eventType);
-	this->mBtnTxtAverage->input(eventType);
-	this->mBtnTxtHard->input(eventType);
-	this->mBtnTxtSmall->input(eventType);
-	this->mBtnTxtMedium->input(eventType);
-	this->mBtnTxtLarge->input(eventType);
-	this->mBtnTxtPlay->input(eventType);
+	this->mBtnTxtEasy->input(eventListener);
+	this->mBtnTxtAverage->input(eventListener);
+	this->mBtnTxtHard->input(eventListener);
+	this->mBtnTxtSmall->input(eventListener);
+	this->mBtnTxtMedium->input(eventListener);
+	this->mBtnTxtLarge->input(eventListener);
+	this->mBtnTxtPlay->input(eventListener);
 
 	if (mBtnTxtEasy->get_action())
 	{
@@ -165,9 +165,13 @@ void SettingGame::input(Uint32 eventType)
 
 void SettingGame::windowSizeChanged(int width,int height)
 {
-	this->mBtnTxtEasy->changePos(width / 5, height / 3);
-	this->mBtnTxtAverage->changePos(width / 5 * 2, height / 3);
-	this->mBtnTxtHard->changePos(width / 5 * 4, height / 3);
+	int margeBtnDiff = (width - (this->mbtnTxtEasy->get_dest().w + this->mBtnTxtAverage->get_dest().w + this->mBtnTxtHard->get_dest().w))/3
+	int margeBtnSize = (width - (this->mbtnTxtSmall->get_dest().w + this->mBtnTxtMedium->get_dest().w + this->mBtnTxtLarge->get_dest().w)) / 3
+
+
+	this->mBtnTxtEasy->changePos(margeBtnDiff, this->mDifficutyTxt->get_rect_dest().y + 30);
+	this->mBtnTxtAverage->changePos(this->mBtnTxtEasy->get_dest().x + this->mBtnTxtEasy->get_dest().w + margeBtnDiff, this->mDifficutyTxt->get_rect_dest().y + 30);
+	this->mBtnTxtHard->changePos(this->mBtnTxtAverage->get_dest().x + this->mBtnTxtAverage->get_dest().w + margeBtnDiff, this->mDifficutyTxt->get_rect_dest().y + 30);
 
 	if(this->mBtnTxtEasy->get_action())
 	*this->mBarSelectDiff = { this->mBtnTxtEasy->get_dest().x, this->mBtnTxtEasy->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h };
@@ -176,9 +180,9 @@ void SettingGame::windowSizeChanged(int width,int height)
 	else if (this->mBtnTxtHard->get_action())
 	*this->mBarSelectDiff = { this->mBtnTxtHard->get_dest().x, this->mBtnTxtHard->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h };
 
-	this->mBtnTxtSmall->changePos(width / 5, height / 2);
-	this->mBtnTxtMedium->changePos(width / 5 * 2, height / 2);
-	this->mBtnTxtLarge->changePos(width / 5 * 4, height / 2);
+	this->mBtnTxtSmall->changePos(margeBtnSize, this->mSizeTxt->get_rect_dest().y + 30);
+	this->mBtnTxtMedium->changePos(this->mBtnTxtSmall->get_dest().x + this->mBtnTxtSmall->get_dest().w + margeBtnSize, this->mSizeTxt->get_rect_dest().y + 30);
+	this->mBtnTxtLarge->changePos(this->mBtnTxtMedium->get_dest().x + this->mBtnTxtMedium->get_dest().w +margeBtnSize, this->mSizeTxt->get_rect_dest().y + 30);
 	if (this->mBtnTxtSmall->get_action())
 	*this->mBarSelectSize = { this->mBtnTxtSmall->get_dest().x, this->mBtnTxtSmall->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h };
 	else if (this->mBtnTxtMedium->get_action())

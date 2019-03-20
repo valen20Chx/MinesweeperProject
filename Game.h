@@ -7,7 +7,8 @@
 #include "StateInGame.h"
 #include "SettingGame.h"
 #include "ScoreBoardScene.h"
-
+#include "SceneConnect.h"
+#include "Reseau.h"
 
 enum game_state
 {
@@ -28,11 +29,7 @@ private:
 	int count, frameCount, timerFPS, lastFrame;
 	int gameState;
 	Scene* gameScene;
-	/*void(*quitFunc)(void);
-	void(*switchToMainMenuFunc)(void);
-	void(*switchToGameSettingsFunc)(void);
-	void(*switchToScoreBoardFunc)(void);
-	void(*switchToInGameFunc)(void);*/
+	Reseau* mReseau;
 public:
 	Game(std::string title, int width, int height, bool fullScreen);
 	~Game();
@@ -40,10 +37,4 @@ public:
 	void update();
 	void input();
 	void render();
-	/////////////////////////////////////////////
-	void switchToMainMenu(void);
-	void switchToGameSettings(void) {}; //TODO
-	void switchToInGame(void);
-	void switchToScoreBoard(void) {}; //TODO
-	void quitGame(void);
 };

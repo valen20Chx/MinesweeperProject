@@ -7,14 +7,11 @@ Game::Game(std::string title, int width, int height, bool fullScreen)
 	this->width = width;
 	this->height = height;
 	this->isRunning = true;
-
-	//Function Pointers Assignement
-	/*this->quitFunc = this->quitGame;
-	this->switchToGameSettingsFunc = this->switchToGameSettings;
-	this->switchToMainMenuFunc = this->switchToMainMenu;
-	this->switchToScoreBoardFunc = this->switchToScoreBoard;
-	this->switchToGameSettingsFunc = this->switchToInGame;*/
-	
+	this->mReseau = NULL;
+	this->count = 0;
+	this->frameCount = 0;
+	this->lastFrame = 0;
+	this->timerFPS = 0;
 	
 	SDL_Init(SDL_INIT_VIDEO);
 	IMG_Init(IMG_INIT_PNG);
@@ -74,7 +71,7 @@ void Game::input()
 	SDL_Event* eventListener = new SDL_Event();
 	while (SDL_PollEvent(eventListener))
 	{
-		this->gameScene->input(eventListener->type);
+		this->gameScene->input(*eventListener);
 		if (eventListener->type == SDL_QUIT)
 		{
 			this->isRunning = false;
@@ -152,6 +149,13 @@ void Game::input()
 			this->gameScene->set_action(ACTION_NONE);
 			this->gameScene->set_small();
 		break;
+
+		case ACTION_TO_CONNECTION:
+			this->gameScene->set_action(ACTION_NONE);
+			this->gameScene = new SceneConnect(this->mRenderer, 0, 0, this->width, this->height);
+			TCPsocket newSocket;
+			this->mReseau = new Reseau({127000000001,9999}, 9999); // TODO : Verifier
+			break;
 	}
 }
 

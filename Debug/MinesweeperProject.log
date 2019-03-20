@@ -1,46 +1,28 @@
-﻿  Button.cpp
+﻿  ButtonText.cpp
   Game.cpp
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(92): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(98): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(103): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(104): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(104): error C2039: 'get_mineSettings': is not a member of 'Scene'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\scene.h(24): note: see declaration of 'Scene'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(104): error C2661: 'StateInGame::StateInGame': no overloaded function takes 5 arguments
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(108): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(109): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(113): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(119): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(120): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(120): error C2061: syntax error: identifier 'ScoreBoardScene'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(120): error C2143: syntax error: missing ';' before '{'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(120): error C2059: syntax error: ')'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(123): error C2059: syntax error: ':'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(125): error C2039: 'scene': is not a member of 'Game'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.h(18): note: see declaration of 'Game'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\game.cpp(126): error C2143: syntax error: missing ';' before 'break'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\Game.cpp(157): error C2143: syntax error: missing ')' before ','
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\Game.cpp(157): error C2512: 'Reseau::Reseau': no appropriate default constructor available
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\Game.cpp(157): error C2059: syntax error: ')'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\Game.cpp(157): error C2059: syntax error: ';'
+  main.cpp
   MainMenu.cpp
   Menu.cpp
   Scene.cpp
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\scene.cpp(21): error C2511: 'void Scene::set_action(int)': overloaded member function not found in 'Scene'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\scene.h(24): note: see declaration of 'Scene'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\scene.cpp(22): error C2671: 'Scene::set_action': static member functions do not have 'this' pointers
+  SceneConnect.cpp
   ScoreBoardScene.cpp
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\ScoreBoardScene.cpp(84): warning C4018: '<': signed/unsigned mismatch
   SettingGame.cpp
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\settinggame.cpp(151): error C2084: function 'void SettingGame::input(Uint32)' already has a body
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\settinggame.cpp(72): note: see previous definition of 'input'
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\settinggame.cpp(160): error C3867: 'Button::get_action': non-standard syntax; use '&' to create a pointer to member
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(10): error C2039: 'mbtnTxtEasy': is not a member of 'SettingGame'
+  C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.h(6): note: see declaration of 'SettingGame'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(11): error C2144: syntax error: 'int' should be preceded by ';'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(11): error C2039: 'mbtnTxtSmall': is not a member of 'SettingGame'
+  C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.h(6): note: see declaration of 'SettingGame'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(14): error C2146: syntax error: missing ';' before identifier 'SDL_Rect'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(168): error C2039: 'mbtnTxtEasy': is not a member of 'SettingGame'
+  C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.h(6): note: see declaration of 'SettingGame'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(169): error C2144: syntax error: 'int' should be preceded by ';'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(169): error C2039: 'mbtnTxtSmall': is not a member of 'SettingGame'
+  C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.h(6): note: see declaration of 'SettingGame'
+C:\Users\admin\source\repos\Codes\C++\Minesweeper_Project\Minesweeper Repo\MinesweeperProject\MinesweeperProject\MinesweeperProject\SettingGame.cpp(172): error C2143: syntax error: missing ';' before 'this'
   StateInGame.cpp
-c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\stateingame.cpp(63): error C2039: 'get_': is not a member of 'MineField'
-  c:\users\admin\source\repos\codes\c++\minesweeper_project\minesweeper repo\minesweeperproject\minesweeperproject\minesweeperproject\minefield.h(31): note: see declaration of 'MineField'
-  main.cpp
   Generating Code...

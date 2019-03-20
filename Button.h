@@ -17,9 +17,9 @@ public:
 	void draw();
 	bool get_action();
 	void set_action(bool action);
-	void input(Uint32 eventType);
+	void input(SDL_Event eventListener);
 	void changeRect(int x, int y, int w, int h);
-	void changePos(int x, int y);
+	virtual void changePos(int x, int y);
 	void changeSize(int w, int h);
 	void changeX(int x);
 	void changeY(int y);

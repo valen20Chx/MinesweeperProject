@@ -80,9 +80,9 @@ void Button::set_action(bool action)
 	this->launchAction = action;
 }
 
-void Button::input(Uint32 eventType)
+void Button::input(SDL_Event eventListener)
 {
-	if (eventType == SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (eventListener.type == SDL_MOUSEBUTTONDOWN && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
@@ -94,7 +94,7 @@ void Button::input(Uint32 eventType)
 			this->isPressed = true;
 		}
 	}
-	if (eventType == SDL_MOUSEBUTTONUP && SDL_BUTTON(SDL_BUTTON_LEFT))
+	if (eventListener.type == SDL_MOUSEBUTTONUP && SDL_BUTTON(SDL_BUTTON_LEFT))
 	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);

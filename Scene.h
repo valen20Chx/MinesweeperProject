@@ -19,7 +19,9 @@ enum scene_action {
 	ACTION_SET_EASY,
 	ACTION_SET_LARGE,
 	ACTION_SET_MED,
-	ACTION_SET_SMALL
+	ACTION_SET_SMALL,
+	ACTION_TO_CONNECTION,
+	ACTION_SEND_LOGIN
 };
 
 
@@ -44,11 +46,11 @@ public:
 	~Scene();
 	virtual void windowSizeChanged(int width, int height) {};
 	virtual void draw() {};
-	virtual void input(Uint32 eventType) {};
+	virtual void input(SDL_Event eventListener) {};
 	int get_action();
 	void set_action(int action);
 
-	/// UNIQUE a SettingGame ///
+	// UNIQUE a SettingGame //
 	MinefieldSettings get_mineSettings();
 	void set_easy();
 	void set_average();
@@ -57,6 +59,9 @@ public:
 	void set_medium();
 	void set_large();
 	void set_seed();
-	///		///		///
+	//		STATE IN GAME	//
 	GameResult get_gameResult();
+	// SceneConnect
+	virtual std::string get_login() { return ""; };
+
 };

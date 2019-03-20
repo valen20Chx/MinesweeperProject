@@ -8,10 +8,11 @@ private:
 	ButtonText* mBtnTxtConnect;
 	Text* mTxtLogin;
 	EditText* editLogin;
-	Text* mTxtPass;
-	EditText* editPass;
 public:
 	SceneConnect(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~SceneConnect();
+	std::string get_login();
+	void draw();
+	void input(SDL_Event eventListener);
 };
 
