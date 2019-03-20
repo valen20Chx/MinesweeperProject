@@ -33,6 +33,7 @@ public:
 	void input(SDL_Event eventListener);
 	void draw();
 	void set_mineSettings(MinefieldSettings mS);
+	void set_buttonPos();
 	void windowSizeChanged(int width, int height);
 };
 
