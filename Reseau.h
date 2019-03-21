@@ -2,6 +2,7 @@
 
 #include <SDL_net.h>
 #include <iostream>
+#include <string>
 
 #define RESEAU_TCP_DATA_MAXLEN 1024
 
@@ -22,11 +23,11 @@ private:
 	TCPsocket socket;
 	Uint16 port;
 	int state;
-	char* serverHostName;
+	std::string serverHostName;
 public:
-	Reseau(char* serverHostName, Uint16 port);
+	Reseau(std::string serverHostName, Uint16 port);
 	int connect();
-	int send(const char* msg);
+	int send(std::string msg);
 	const char* recv();
 	~Reseau();
 	int get_state();

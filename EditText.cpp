@@ -19,13 +19,17 @@ EditText::~EditText()
 
 void EditText::input(SDL_Event eventListener)
 {
-	if (eventListener.type == SDL_TEXTINPUT)
+	if (eventListener.type == SDL_KEYUP && eventListener.key.keysym.sym == SDLK_BACKSPACE && this->textInput.length() > 0 && this->isFocused)
 	{
-		if (eventListener.type == SDL_KEYDOWN && SDL_GetKeyboardState(NULL)[SDL_SCANCODE_BACKSPACE] && this->textInput.length() > 0)
-		{
-			this->textInput = this->textInput.substr(0, this->textInput.length() - 1);
-		}
-		else if (eventListener.type == SDL_TEXTINPUT)
+		std::cout << "BackSpace pressed" << std::endl;
+		this->textInput = this->textInput.substr(0, this->textInput.length() - 1);
+		this->mTextObj->update(this->textInput);
+		this->textInput += eventListener.text.text;
+	}
+	else if (eventListener.type == SDL_TEXTINPUT)
+	{
+		
+		if (eventListener.type == SDL_TEXTINPUT)
 		{
 			if (this->textInput.length() < this->maxChar)
 			{

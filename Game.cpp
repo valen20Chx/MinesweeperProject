@@ -71,7 +71,9 @@ void Game::input()
 	SDL_Event* eventListener = new SDL_Event();
 	while (SDL_PollEvent(eventListener))
 	{
+		// Appel fonction input des scenes
 		this->gameScene->input(*eventListener);
+
 		if (eventListener->type == SDL_QUIT)
 		{
 			this->isRunning = false;
@@ -79,7 +81,9 @@ void Game::input()
 		if (eventListener->window.event == SDL_WINDOWEVENT_RESIZED)
 		{
 			SDL_GetWindowSize(this->mWindow, &this->width, &this->height);
+			// Changement taille scene
 			this->gameScene->windowSizeChanged(this->width, this->height);
+
 			std::cout << "Change Size : (" << this->width << ";" << this->height << ")" << std::endl;
 		}
 	}
@@ -100,7 +104,7 @@ void Game::input()
 		this->gameScene->set_action(ACTION_NONE);
 		this->gameScene->set_seed();
 		std::cout << "creation scene In game";
-		this->gameScene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSettings()); // TODO : test
+		this->gameScene = new StateInGame(this->mRenderer, 0, 0, this->width, this->height, this->gameScene->get_mineSettings());
 		std::cout << "fin creation de scene IN GAME";
 		break;
 
@@ -152,9 +156,22 @@ void Game::input()
 
 		case ACTION_TO_CONNECTION:
 			this->gameScene->set_action(ACTION_NONE);
+			std::cout << "Creation scene connection" << std::endl;
 			this->gameScene = new SceneConnect(this->mRenderer, 0, 0, this->width, this->height);
-			TCPsocket newSocket;
-			this->mReseau = new Reseau({127000000001,9999}, 9999); // TODO : Verifier
+			this->mReseau = new Reseau("localhost", 9999); // TODO : Verifier
+			break;
+
+		case ACTION_SEND_LOGIN:
+			this->gameScene->set_action(ACTION_NONE);
+			this->mReseau->send(this->gameScene->get_login());
+			if (this->mReseau->recv() != "")
+			{
+				this->gameScene = new SettingGame(this->mRenderer, 0, 0, this->width, this->height);
+			}
+			else
+			{
+				this->gameScene = new MainMenu(this->mRenderer, 0, 0, this->width, this->height);
+			}
 			break;
 	}
 }

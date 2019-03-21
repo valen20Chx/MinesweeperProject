@@ -52,7 +52,7 @@ void MainMenu::input(SDL_Event eventListener)
 	}
 	if (this->mBtnTxtMulti->get_action())
 	{
-		//this->action = ACTION_TO
+		this->action = ACTION_TO_CONNECTION;
 	}
 }
 

@@ -44,7 +44,7 @@ SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int 
 		BUTTON_REST, BUTTON_PRESSED, 25, { 100,100,255, 255 }, FONT_BOLD, "PLAY");
 
 	//Actualise la position de bouttons
-	set_buttonPos();
+	set_buttonPos(width, height);
 
 	//Charger les Bar de seletection
 	this->mBarSelectDiff = new SDL_Rect();
@@ -61,7 +61,8 @@ SettingGame::SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int 
 
 	this->mWallpaper = new WallPaper(128, 128, this->width, this->height, "Ressources/Image/Default/Background_Repeat_01.png", this->mRenderer);
 
-
+	this->mSize_selected = false;
+	this->mDiff_selected = false;
 }
 
 
@@ -103,59 +104,69 @@ void SettingGame::input(SDL_Event eventListener)
 	this->mBtnTxtLarge->input(eventListener);
 	this->mBtnTxtPlay->input(eventListener);
 
-	if (mBtnTxtEasy->get_action())
+	if (this->mBtnTxtEasy->get_action())
 	{
 		this->action = ACTION_SET_EASY;
 		this->mBtnTxtEasy->set_action(false);
 		this->mBtnTxtAverage->set_action(false);
 		this->mBtnTxtHard->set_action(false);
 		*this->mBarSelectDiff = { this->mBtnTxtEasy->get_dest().x, this->mBtnTxtEasy->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5, this->mBtnTxtEasy->get_dest().w, this->mBarSelectDiff->h };
+		this->mDiff_selected = true;
 	}
-	else if (mBtnTxtAverage->get_action())
+	else if (this->mBtnTxtAverage->get_action())
 	{
 		this->action = ACTION_SET_AVG;
 		this->mBtnTxtEasy->set_action(false);
 		this->mBtnTxtAverage->set_action(false);
 		this->mBtnTxtHard->set_action(false);
 		*this->mBarSelectDiff = { this->mBtnTxtAverage->get_dest().x, this->mBtnTxtAverage->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5, this->mBtnTxtEasy->get_dest().w, this->mBarSelectDiff->h };
+		this->mDiff_selected = true;
 	}
-	else if (mBtnTxtHard->get_action())
+	else if (this->mBtnTxtHard->get_action())
 	{
 		this->action = ACTION_SET_HARD;
 		this->mBtnTxtEasy->set_action(false);
 		this->mBtnTxtAverage->set_action(false);
 		this->mBtnTxtHard->set_action(false);
 		*this->mBarSelectDiff = { this->mBtnTxtHard->get_dest().x, this->mBtnTxtHard->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5, this->mBtnTxtEasy->get_dest().w, this->mBarSelectDiff->h };
+		this->mDiff_selected = true;
 	}
- if (mBtnTxtSmall->get_action())
+	if (this->mBtnTxtSmall->get_action())
 	{
 		this->action = ACTION_SET_SMALL;
 		this->mBtnTxtSmall->set_action(false);
 		this->mBtnTxtMedium->set_action(false);
 		this->mBtnTxtLarge->set_action(false);
 		*this->mBarSelectSize = { this->mBtnTxtSmall->get_dest().x, this->mBtnTxtSmall->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5, this->mBtnTxtEasy->get_dest().w, this->mBarSelectSize->h };
+		this->mSize_selected = true;
 	}
-	else if (mBtnTxtMedium->get_action())
+	else if (this->mBtnTxtMedium->get_action())
 	{
 		this->action = ACTION_SET_MED;
 		this->mBtnTxtSmall->set_action(false);
 		this->mBtnTxtMedium->set_action(false);
 		this->mBtnTxtLarge->set_action(false);
 		*this->mBarSelectSize = { this->mBtnTxtMedium->get_dest().x, this->mBtnTxtMedium->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5, this->mBtnTxtEasy->get_dest().w, this->mBarSelectSize->h };
-
+		this->mSize_selected = true;
 	}
-	else if (mBtnTxtLarge->get_action())
+	else if (this->mBtnTxtLarge->get_action())
 	{
 		this->action = ACTION_SET_LARGE;
 		this->mBtnTxtSmall->set_action(false);
 		this->mBtnTxtMedium->set_action(false);
 		this->mBtnTxtLarge->set_action(false);
 		*this->mBarSelectSize = { this->mBtnTxtLarge->get_dest().x, this->mBtnTxtLarge->get_dest().y + this->mBtnTxtLarge->get_dest().h + 5 , this->mBtnTxtEasy->get_dest().w, this->mBarSelectSize->h };
+		this->mSize_selected = true;
 	}
- if (mBtnTxtPlay->get_action())
- {
-	 this->action = ACTION_TO_INGAME;
- }
+
+	 if (this->mBtnTxtPlay->get_action())
+	 {
+		 this->mBtnTxtPlay->set_action(false);
+		 if (this->mSize_selected && this->mDiff_selected)
+		 {
+			this->action = ACTION_TO_INGAME;
+		 }
+	 }
 }
 
 
@@ -164,7 +175,7 @@ void SettingGame::input(SDL_Event eventListener)
 
 void SettingGame::windowSizeChanged(int width,int height)
 {
-	set_buttonPos();
+	set_buttonPos(width, height);
 
 	if(this->mBtnTxtEasy->get_action())
 	*this->mBarSelectDiff = { this->mBtnTxtEasy->get_dest().x, this->mBtnTxtEasy->get_dest().y - 20, this->mBarSelectDiff->w, this->mBarSelectDiff->h };
@@ -180,13 +191,17 @@ void SettingGame::windowSizeChanged(int width,int height)
 	*this->mBarSelectSize = { this->mBtnTxtMedium->get_dest().x, this->mBtnTxtMedium->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h };
 	else if (this->mBtnTxtHard->get_action())
 	*this->mBarSelectSize = { this->mBtnTxtLarge->get_dest().x, this->mBtnTxtLarge->get_dest().y - 20, this->mBarSelectSize->w, this->mBarSelectSize->h };
+	this->mWallpaper->update(width, height);
+
+	this->mSizeTxt->set_rect_dest((width / 2) - (this->mSizeTxt->get_rect_dest().w / 2), this->mSizeTxt->get_rect_dest().y);
+	this->mDifficutyTxt->set_rect_dest((width / 2) - (this->mDifficutyTxt->get_rect_dest().w / 2), this->mDifficutyTxt->get_rect_dest().y);
 
 }
 
-void SettingGame::set_buttonPos()
+void SettingGame::set_buttonPos(int width, int height)
 {
-	int margeBtnDiff = (width - (this->mBtnTxtEasy->get_dest().w + this->mBtnTxtAverage->get_dest().w + this->mBtnTxtHard->get_dest().w)) / 3;
-	int margeBtnSize = (width - (this->mBtnTxtSmall->get_dest().w + this->mBtnTxtMedium->get_dest().w + this->mBtnTxtLarge->get_dest().w)) / 3;
+	int margeBtnDiff = (width - (this->mBtnTxtEasy->get_dest().w + this->mBtnTxtAverage->get_dest().w + this->mBtnTxtHard->get_dest().w)) / 4;
+	int margeBtnSize = (width - (this->mBtnTxtSmall->get_dest().w + this->mBtnTxtMedium->get_dest().w + this->mBtnTxtLarge->get_dest().w)) / 4;
 
 
 	this->mBtnTxtEasy->changePos(margeBtnDiff, this->mDifficutyTxt->get_rect_dest().y + 30);
@@ -196,7 +211,7 @@ void SettingGame::set_buttonPos()
 	this->mBtnTxtMedium->changePos(this->mBtnTxtSmall->get_dest().x + this->mBtnTxtSmall->get_dest().w + margeBtnSize, this->mSizeTxt->get_rect_dest().y + 30);
 	this->mBtnTxtLarge->changePos(this->mBtnTxtMedium->get_dest().x + this->mBtnTxtMedium->get_dest().w + margeBtnSize, this->mSizeTxt->get_rect_dest().y + 30);
 
-	this->mBtnTxtPlay->changePos(this->width / 2 - (this->mBtnTxtPlay->get_dest().w / 2), this->height / 5 * 4);
+	this->mBtnTxtPlay->changePos(width / 2 - (this->mBtnTxtPlay->get_dest().w / 2), height / 5 * 4);
 }
 
 

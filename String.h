@@ -12,6 +12,7 @@ const std::string BUTTON_OPTION_PRESSED = "Ressources/Image/Default/Button_Optio
 const std::string BUTTON_QUIT_REST = "Ressources/Image/Default/Button_Quit_Rest.png";
 const std::string BUTTON_QUIT_PRESSED = "Ressources/Image/Default/Button_Quit_Pressed.png";
 const std::string FONT_BOLD = "Ressources/Font/Open_Sans/OpenSans-Bold.ttf";
+const std::string IMG_WALLPAPER_1 = "Ressources/Image/Default/Background_Repeat_01.png";
 const SDL_Color BLACK = { 0, 0, 0, 255};
 const SDL_Color WHITE = { 255, 255, 255, 255};
 const SDL_Color GOLD = { 255, 215, 0, 255};

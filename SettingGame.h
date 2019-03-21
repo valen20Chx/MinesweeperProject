@@ -27,13 +27,15 @@ private:
 
 	WallPaper* mWallpaper;
 
+	bool mSize_selected, mDiff_selected;
+
 public:
 	SettingGame(SDL_Renderer * pRenderer, int x, int y, int width, int height);
 	~SettingGame();
 	void input(SDL_Event eventListener);
 	void draw();
 	void set_mineSettings(MinefieldSettings mS);
-	void set_buttonPos();
+	void set_buttonPos(int width, int height);
 	void windowSizeChanged(int width, int height);
 };
 

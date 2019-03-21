@@ -1,13 +1,19 @@
 #include "Reseau.h"
 
-Reseau::Reseau(char* serverHostName, Uint16 port)
+Reseau::Reseau(std::string serverHostName, Uint16 port)
 {
 	this->serverHostName = serverHostName;
 	this->port = port;
 	this->state = RESEAU_DECO;
-	if (SDLNet_ResolveHost(&this->ip, this->serverHostName, this->port) == -1)
+	this->socket = NULL;
+	if (SDLNet_ResolveHost(&this->ip, this->serverHostName.c_str(), this->port) == -1)
 	{
 		std::cerr << "ERROR : SDLNet_ResolveHost() : " << SDLNet_GetError() << std::endl;
+	}
+	this->socket = SDLNet_TCP_Open(&this->ip);
+	if (!this->socket)
+	{
+		std::cerr << "ERROR : SDLNet_TCP_Open() : " << SDLNet_GetError() << std::endl;
 	}
 }
 
@@ -23,13 +29,13 @@ int Reseau::connect()
 	return RESEAU_SUCCESS;
 }
 
-int Reseau::send(const char* msg)
+int Reseau::send(std::string msg)
 {
 	int len, result;
 
-	len = strlen(msg) + 1;
+	len = strlen(msg.c_str()) + 1;
 
-	result = SDLNet_TCP_Send(this->socket, msg, len);
+	result = SDLNet_TCP_Send(this->socket, msg.c_str(), len);
 
 	if (result < len)
 	{
